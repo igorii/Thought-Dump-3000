@@ -14,13 +14,15 @@ body {
   color:#2c3e50;
   padding:5px;
   font-size: 70px;
-  font-family: 'Poiret One'
+  font-family: 'Poiret One';
+  color: #c0392b;
 }
 
 #footer-content {
   display: block;
-  width: 800px;
-  margin: 0 auto;
+  position: absolute;
+  bottom: 8px;
+  left: 80px;
 }
 
 #content {
