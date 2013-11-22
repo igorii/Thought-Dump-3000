@@ -71,15 +71,12 @@ SProto.views.content = function () {
 SProto.blog = {};
 SProto.blog.main = function () {
   var $content = $('#site-content');
-  $.get('/blog', function (articles) { 
-    JSON.parse(articles).forEach(function (article) {
-      console.log(article);
-      
+  $.get('/blog/raw', function (articles) { 
+    articles.forEach(function (article) {
       var $area = $('<div>').addClass('article');
       $('<h3>').text(article.title).appendTo($area);
-      $('<div>').html(article.content).addClass('article-content').appendTo($area);      
+      $('<div>').html(article.body).addClass('article-content').appendTo($area);      
       $area.appendTo($content);        
-      
     });
   });
 };

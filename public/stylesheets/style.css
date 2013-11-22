@@ -13,7 +13,8 @@ body {
   width:100%;
   color:#2c3e50;
   padding:5px;
-  font-size: 32px;
+  font-size: 70px;
+  font-family: 'Poiret One'
 }
 
 #footer-content {
@@ -34,7 +35,7 @@ body {
 }
 
 #nav-main {
-  top: 35%; 
+  top: 30%; 
   font-size: 14px;
   padding: 10px;
   left: 42%;
@@ -78,6 +79,7 @@ body {
 }
 
 .article {
+  padding: 5px;
   padding-bottom: 25px; 
 }
 
@@ -97,10 +99,10 @@ body {
 }
 
 #lambda {
-  height:100%;
+  bottom: 0;
+  width: 250px;
   position: absolute;
   opacity: 0.05;
-  left: 20%;
 }
 
 .name-sidebar {
@@ -109,6 +111,7 @@ body {
 
 #name {
     width: 240px;
-    font-size: 22px;
+    font-family: 'Poiret One';
+    font-size: 32px;
     color: #c0392b;
 }
