@@ -23,7 +23,8 @@ if ('development' == app.get('env')) {
 }
 
 // Application routes
-app.get('/blog', blog.articles);;
+app.get('/blog',     blog.articles);
+app.post('/blog/new', blog.save);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
