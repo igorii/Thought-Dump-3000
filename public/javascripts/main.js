@@ -71,7 +71,7 @@ SProto.views.content = function () {
 SProto.blog = {};
 SProto.blog.main = function () {
   var $content = $('#site-content');
-  $.get('/blog/raw', function (articles) { 
+  $.get('/blog', function (articles) { 
     articles.forEach(function (article) {
       var $area = $('<div>').addClass('article');
       $('<h3>').text(article.title).appendTo($area);
