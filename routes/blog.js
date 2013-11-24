@@ -1,8 +1,8 @@
 // Pull in the article provider
-var articles = require('../lib/articles').provider;
+var Provider = require('../lib/articles').provider;
 
 // Create a new provider
-var provider = new articles();
+var provider = new Provider('localhost', 27017);
 
 var user = 'user';
 var pass = 'pass';
@@ -10,6 +10,7 @@ var pass = 'pass';
 // Serve all articles
 exports.articles = function (req, res) {
     provider.findAll(function (error, docs) {
+        console.log(error);
         if (error) { 
             res.status(500).end();
         } else {
