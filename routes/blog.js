@@ -18,13 +18,28 @@ exports.articles = function (req, res) {
     });
 };
 
-exports.main = function (req, res) {
+exports.single = function (req, res) {
+    console.log(req.params.id);
+    provider.findById(req.params.id, function (error, doc) {
+        if (error || doc === null) {
+            res.status(500).end();
+        } else {
+            res.render('article', {
+                article: doc
+            });
+        }
+    });
+};
+
+exports.all = function (req, res) {
     provider.findAll(function (error, docs) {
         if (error) {
             res.status(500).end();
         } else {
             res.render('blog', {
-                articles: docs
+                articles: docs.sort(function (a1, a2) { 
+                    return a1.created_at < a2.created_at;
+                })
             });
         }
     });
@@ -47,7 +62,7 @@ exports.save = function (req, res) {
         if (error) {
             res.status(500).end();
         } else {
-            res.redirect('/');
+            res.redirect('/blog');
         }
     });
 };

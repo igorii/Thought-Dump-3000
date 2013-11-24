@@ -28,7 +28,18 @@ p {
     text-decoration: none;
 }
 
-.article-title:hover {
+.read-more-container {
+    text-align: right;
+}
+
+.read-more {
+    color: #c0392b;
+    font-family: 'Indie Flower';
+    text-decoration: none;
+    padding-right: 30px;
+}
+
+.article-title:hover, .read-more:hover {
     color: #1abc9c;
 }
 
@@ -118,14 +129,18 @@ p {
 
 .article-content {
     padding-left: 25px; 
-    font-size: 16px;
+    font-size: 14px;
+}
+
+.created-at {
+    font-size: 10px;
 }
 
 .article {
     padding: 5px;
     margin-bottom: 10px;
     margin-top: 10px;
-    padding-bottom: 25px;
+    padding-bottom: 5px;
     background: white;
     border-radius: 10px;
     padding-left: 15px;

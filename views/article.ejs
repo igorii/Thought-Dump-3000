@@ -1,6 +1,5 @@
 <% include header.ejs %>
 
-<% articles.forEach(function (article) { %>
     <div class="article">
         <a class="article-title" href="/blog/id/<%= article._id %>">
             <%= article.title %>
@@ -12,12 +11,8 @@
                    (article.created_at.getMonth() + 1) + '-' + 
                     article.created_at.getFullYear() %>
             </span>
-            <%- article.body.substr(0, 500) %>
-            <div class="read-more-container">
-                <a class="read-more" href="/blog/id/<%= article._id %>">Read more...</a>
-            </div>
+            <%- article.body %>
         </div>
     </div> 
-<% }) %>
 
 <% include footer.ejs %>
