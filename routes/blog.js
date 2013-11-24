@@ -18,6 +18,18 @@ exports.articles = function (req, res) {
     });
 };
 
+exports.main = function (req, res) {
+    provider.findAll(function (error, docs) {
+        if (error) {
+            res.status(500).end();
+        } else {
+            res.render('blog', {
+                articles: docs
+            });
+        }
+    });
+};
+
 exports.save = function (req, res) {
     // TODO: Do proper auth, not this makeshift garbage
     if (req.param('user') !== user || req.param('pass') !== pass)

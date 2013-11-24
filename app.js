@@ -10,6 +10,7 @@ var path = require('path');
 var app = express();
 
 // All environments
+app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3000);
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -23,7 +24,10 @@ if ('development' == app.get('env')) {
 }
 
 // Application routes
-app.get('/blog',     blog.articles);
+app.get('/',     function (req, res) { res.render('index'); });
+app.get('/blog', blog.main);
+
+//app.get('/blog',      blog.articles);
 app.post('/blog/new', blog.save);
 
 http.createServer(app).listen(app.get('port'), function(){
