@@ -30,6 +30,10 @@ exports.main = function (req, res) {
     });
 };
 
+exports.create = function (req, res) {
+    res.render('create');
+};
+
 exports.save = function (req, res) {
     // TODO: Do proper auth, not this makeshift garbage
     if (req.param('user') !== user || req.param('pass') !== pass)
