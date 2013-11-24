@@ -25,6 +25,16 @@ p {
     color: #c0392b;
     font-size: 30px;
     font-family: 'Indie Flower';
+    text-decoration: none;
+}
+
+.article-title:hover {
+    color: #1abc9c;
+}
+
+#name:hover, .name:hover {
+    color: #1abc9c;
+    cursor: hand;
 }
 
 #footer {

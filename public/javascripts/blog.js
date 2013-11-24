@@ -1,4 +1,5 @@
 $(function () {
+    Common.addRedirectButton('#name'        ,         '/');
     Common.addRedirectButton('#blog-btn-sidebar',     '/blog');
     Common.addRedirectButton('#projects-btn-sidebar', '/projects');
     Common.addRedirectButton('#about-btn-sidebar',    '/about');
