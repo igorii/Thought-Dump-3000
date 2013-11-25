@@ -10,7 +10,6 @@ var pass = 'pass';
 // Serve all articles
 exports.articles = function (req, res) {
     provider.findAll(function (error, docs) {
-        console.log(error);
         if (error) { 
             res.status(500).end();
         } else {
@@ -20,7 +19,6 @@ exports.articles = function (req, res) {
 };
 
 exports.single = function (req, res) {
-    console.log(req.params.id);
     provider.findById(req.params.id, function (error, doc) {
         if (error || doc === null) {
             res.status(500).end();
@@ -51,13 +49,14 @@ exports.create = function (req, res) {
 };
 
 exports.save = function (req, res) {
-    // TODO: Do proper auth, not this makeshift garbage
+    // TODO: improve this
     if (req.param('user') !== user || req.param('pass') !== pass)
         return res.status(401).send('Unauthorized');
 
     // If authorized, save the article
     provider.save({
-        title : req.param('title'),
+        title    : req.param('title'),
+        created  : req.param('created') !== '' ? new Date(req.param('created')) : new Date(), 
         markdown : req.param('markdown')
     }, function (error, docs) {
         if (error) {

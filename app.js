@@ -24,7 +24,7 @@ if ('development' == app.get('env')) {
 }
 
 // Application routes
-app.get('/',            function (req, res) { res.render('index'); });
+app.get('/',            blog.all); //function (req, res) { res.render('index'); });
 app.get('/blog',        blog.all);
 app.get('/blog/id/:id', blog.single);
 app.get('/blog/create', blog.create);

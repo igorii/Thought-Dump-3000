@@ -12,7 +12,8 @@
                    (article.created_at.getMonth() + 1) + '-' + 
                     article.created_at.getFullYear() %>
             </span>
-            <%- article.body.substr(0, 500) + '...' %>
+            <%- article.body.split('</p>')[0] + '</p>' + article.body.split('</p>')[1] + '</p>'  %>
+            <hr>
             <div class="read-more-container">
                 <a class="read-more" href="/blog/id/<%= article._id %>">Read more...</a>
             </div>

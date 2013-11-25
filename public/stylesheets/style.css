@@ -5,6 +5,7 @@ h4, h6 {
 
 h5 {
     font-family: inherit;
+    font-size: 14px;
 }
 
 h3 {
@@ -14,7 +15,7 @@ h3 {
 }
 
 body {
-    background: #ecf0f1; 
+    background: #34495E; 
 }
 
 p {
@@ -33,6 +34,7 @@ p {
 }
 
 .read-more {
+    font-size:16px;
     color: #c0392b;
     font-family: 'Indie Flower';
     text-decoration: none;
@@ -40,11 +42,11 @@ p {
 }
 
 .article-title:hover, .read-more:hover {
-    color: #1abc9c;
+    color: #2C3E50;
 }
 
 #name:hover, .name:hover {
-    color: #1abc9c;
+    color: #C0392B;
     cursor: hand;
 }
 
@@ -53,11 +55,10 @@ p {
     left:0px;
     bottom:0px;
     width:100%;
-    color:#2c3e50;
+    color:#95A5A6;
     padding:5px;
     font-size: 70px;
     font-family: 'Neucha';
-    color: #c0392b;
 }
 
 #footer-content {
@@ -104,31 +105,45 @@ p {
     width:250px;
 }
 
-.button, .button-main {
-    color: #34495e;
-    padding: 10px;
+
+.button {
+    font-family: Neucha;
+    position: relative;
+    color: rgba(255,255,255,1);
     text-decoration: none;
-    font-family: 'Neucha';
-    font-size: 18px;
+    background-color: rgba(219,87,5,1);
+    padding: 4px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 0 8px 8px 0;
+    -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    margin: 15px auto;
+    text-align: center;
+    
+    -webkit-transition: all .1s ease;
+    -moz-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
 }
 
 .button:hover {
-    background-color: #1abc9c;
-    color: white;
-    text-decoration: none;
     cursor: hand;
-    border-radius: 0 10px 10px 0;
 }
 
-.button-main:hover {
-    background-color: #1abc9c;
-    color: white;
-    text-decoration: none;
-    cursor: hand;
+.button:active {
+    -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
 }
 
 .article-content {
     padding-left: 25px; 
+    padding-right: 25px; 
     font-size: 14px;
 }
 
@@ -138,6 +153,7 @@ p {
 
 .article {
     padding: 5px;
+    padding-top:15px;
     margin-bottom: 10px;
     margin-top: 10px;
     padding-bottom: 5px;
@@ -155,7 +171,7 @@ p {
     position: absolute;
     top: 40px;
     left: 250px;
-    background: #dddddd;
+    background: #2C3E50;
     margin-left:20px;
     padding: 10px;
     border-radius: 16px;
