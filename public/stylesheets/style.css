@@ -11,7 +11,7 @@ h5 {
 h3 {
     color: #c0392b;
     font-size:30px;
-    font-family: 'Indie Flower';
+    font-family: 'Belgrano';
 }
 
 body {
@@ -24,8 +24,8 @@ p {
 
 .article-title {
     color: #c0392b;
-    font-size: 30px;
-    font-family: 'Indie Flower';
+    font-size: 24px;
+    font-family: 'Belgrano';
     text-decoration: none;
 }
 
@@ -36,7 +36,7 @@ p {
 .read-more {
     font-size:16px;
     color: #c0392b;
-    font-family: 'Indie Flower';
+    font-family: 'Belgrano';
     text-decoration: none;
     padding-right: 30px;
 }
@@ -58,7 +58,7 @@ p {
     color:#95A5A6;
     padding:5px;
     font-size: 70px;
-    font-family: 'Neucha';
+    font-family: 'Open Sans';
 }
 
 #footer-content {
@@ -73,6 +73,7 @@ p {
 }
 
 .nav {
+    padding-top:20px;
     margin: 0 auto;
     display: block;
     width: 240px;
@@ -105,9 +106,15 @@ p {
     width:250px;
 }
 
+#tag {
+    text-align:center;
+    color: #95A5A6;
+    padding:5px;
+    margin-bottom: 20px;
+}
 
 .button {
-    font-family: Neucha;
+    font-family: Open Sans;
     position: relative;
     color: rgba(255,255,255,1);
     text-decoration: none;
@@ -145,6 +152,7 @@ p {
     padding-left: 25px; 
     padding-right: 25px; 
     font-size: 14px;
+    margin-top: 25px;
 }
 
 .created-at {
@@ -160,7 +168,7 @@ p {
     background: white;
     border-radius: 10px;
     padding-left: 15px;
-    font: 62.5% Arial, Helvetica, sans-serif;
+    font-family: Open Sans
 }
 
 .title {
@@ -186,7 +194,7 @@ p {
     bottom: 0;
     width: 250px;
     position: absolute;
-    opacity: 0.12;
+    opacity: 0.15;
 }
 
 .name-sidebar {
@@ -195,9 +203,10 @@ p {
 }
 
 #name {
+    text-align:center;
     width: 240px;
-    font-family: 'Neucha';
-    font-size: 32px;
+    font-family: 'Belgrano';
+    font-size: 30px;
     color: white;
     border-radius: 0 10px 10px 0;
     background: #2c3e50;
