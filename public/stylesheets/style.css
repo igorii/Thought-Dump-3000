@@ -22,6 +22,10 @@ p {
     text-indent: 30px;
 }
 
+a {
+    text-decoration: none;
+}
+
 .article-title {
     color: #c0392b;
     font-size: 24px;
@@ -111,21 +115,23 @@ p {
     color: #95A5A6;
     padding:5px;
     margin-bottom: 20px;
+    position: relative;
+    left: 15px;
 }
 
 .button {
+    left: 15px;
     font-family: Open Sans;
     position: relative;
     color: rgba(255,255,255,1);
     text-decoration: none;
-    background-color: rgba(219,87,5,1);
+    background-color: #46596D;
     padding: 4px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
-    border-radius: 0 8px 8px 0;
-    -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
-    -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
-    box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    -webkit-box-shadow: 0px 9px 0px rgba(0,0,0,0.1), 0px 9px 25px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 9px 0px rgba(0,0,0,0.1), 0px 9px 25px rgba(0,0,0,.7);
+    box-shadow: 0px 9px 0px rgba(0,0,0,0.1), 0px 9px 25px rgba(0,0,0,.7);
     margin: 15px auto;
     text-align: center;
     
@@ -141,9 +147,9 @@ p {
 }
 
 .button:active {
-    -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
-    -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
-    box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    -webkit-box-shadow: 0px 3px 0px rgba(0,0,0,1), 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px rgba(0,0,0,1), 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px rgba(0,0,0,1), 0px 3px 6px rgba(0,0,0,.9);
     position: relative;
     top: 6px;
 }
@@ -160,6 +166,7 @@ p {
 }
 
 .article {
+    box-shadow: 0 5px 0 #666666;
     padding: 5px;
     padding-top:15px;
     margin-bottom: 10px;
@@ -204,10 +211,9 @@ p {
 
 #name {
     text-align:center;
-    width: 240px;
+    width: 115%;
     font-family: 'Belgrano';
     font-size: 30px;
     color: white;
-    border-radius: 0 10px 10px 0;
     background: #2c3e50;
 }
