@@ -1,8 +1,15 @@
-<span class="created-at">Created 
-    <%- ('00' + article.created_at.getDate()).slice(-2)       + '-' + 
-       ('00' + (article.created_at.getMonth() + 1)).slice(-2) + '-' + 
-        article.created_at.getFullYear() %>
-</span>
+<div class="article-metadata">
+    <span class="created-at">Created 
+        <%- ('00' + article.created_at.getDate()).slice(-2)       + '-' + 
+           ('00' + (article.created_at.getMonth() + 1)).slice(-2) + '-' + 
+            article.created_at.getFullYear() %>
+    </span>
+    <br>
+    <a href="/blog/id/<%= article._id %>#comments">
+        <%- article.comments.length %> Comment<%- article.comments.length === 1 ? '' : 's' %>
+    </a>
+</div>
+
 <div class="article">
     <a class="article-title" href="/blog/id/<%= article._id %>">
         <%= article.title %>

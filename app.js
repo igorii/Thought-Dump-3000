@@ -11,7 +11,7 @@ var app = express();
 
 // All environments
 app.set('view engine', 'ejs');
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 80);
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -24,14 +24,15 @@ if ('development' == app.get('env')) {
 }
 
 // Application routes
-app.get(  '/',              blog.all     );
-app.get(  '/blog',          blog.all     );
-app.get(  '/blog/id/:id',   blog.single  );
-app.get(  '/blog/edit/:id', blog.edit    );
-app.get(  '/blog/create',   blog.create  );
+app.get(  '/',                 blog.all     );
+app.get(  '/blog',             blog.all     );
+app.get(  '/blog/id/:id',      blog.single  );
+app.get(  '/blog/edit/:id',    blog.edit    );
+app.get(  '/blog/create',      blog.create  );
 
-app.post( '/blog/save',     blog.save    );
-app.post( '/blog/update',   blog.update  );
+app.post( '/blog/save',        blog.save    );
+app.post( '/blog/update',      blog.update  );
+app.post( '/blog/comment/:id', blog.comment );
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

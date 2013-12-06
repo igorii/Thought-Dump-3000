@@ -4,4 +4,28 @@
         </div>
     </div> 
 
+    <%if (article.full === true) { %>
+        <%for (var i in article.comments) { %>
+            <div class="article-comment">
+                <span class="leave-comment-prompt"><%- article.comments[i].user %> said:</span>
+                <br>
+                <div class="comment-content-concrete">
+                    <%- article.comments[i].content %>
+                </div>
+            </div>
+        <% } %>
+
+        <a name="comments"></a>
+        <div class="article-comment leave-comment">
+            <form action="/blog/comment/<%= article._id %>" method="POST">
+                <input type="hidden" name="_id" value="<%- article._id %>">
+                <span class="leave-comment-prompt">Leave a reply</span>
+                <br>
+                <textarea class="comment-content" name="comment-content" title="Enter your comment here..." placeholder="Enter your comment here..."></textarea>
+                <input type="text" name="user" placeholder="Anonymous"></input>
+                <input type="submit" name="submit" title="Post" id="comment-submit"></input>
+            </form>
+        </div>
+    <% } %>
+
 <% include footer.ejs %>

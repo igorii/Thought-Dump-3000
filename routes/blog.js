@@ -28,12 +28,28 @@ exports.single = function (req, res) {
         if (error || doc === null) {
             res.status(500).end();
         } else {
+            doc.full = true; // Flag to add comments
             res.render('article', {
                 article: doc
             });
         }
     });
 };
+
+exports.comment = function (req, res) {
+
+    // Update the article with the new body
+    provider.comment({
+        user    : req.param('user') || 'Anonymous',
+        content : req.param('content') || '',
+        _id     : req.param('_id')
+    }, function (error, docs) {
+        if (error) 
+            res.status(500).end();
+        else 
+            res.redirect('/blog/id/' + req.param('_id'));
+    });
+}
 
 exports.all = function (req, res) {
     provider.findAll(function (error, docs) {
