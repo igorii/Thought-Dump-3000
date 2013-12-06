@@ -1,0 +1,12 @@
+<span class="created-at">Created 
+    <%- ('00' + article.created_at.getDate()).slice(-2)       + '-' + 
+       ('00' + (article.created_at.getMonth() + 1)).slice(-2) + '-' + 
+        article.created_at.getFullYear() %>
+</span>
+<div class="article">
+    <a class="article-title" href="/blog/id/<%= article._id %>">
+        <%= article.title %>
+    </a>
+    
+    <div class="article-content">
+        <%- article.body %>

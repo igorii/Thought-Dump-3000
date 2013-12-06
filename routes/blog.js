@@ -45,6 +45,10 @@ exports.all = function (req, res) {
                     return a1.created_at < a2.created_at;
                 }).filter(function (article) {
                     return article.body;
+                }).map(function (article) {
+                    article.body = article.body.split('</p>')[0] + '</p>' + 
+                                   article.body.split('</p>')[1] + '</p>';
+                    return article;
                 })
             });
         }
@@ -59,6 +63,7 @@ exports.edit = function (req, res) {
             res.render('edit', {
                 article: {
                     body       : doc.body,
+                    github     : doc.github,
                     created_at : doc.created_at,
                     title      : doc.title,
                     _id        : doc._id
@@ -76,9 +81,10 @@ exports.update = function (req, res) {
 
     // Update the article with the new body
     provider.update({
-        title : req.param('title'),
-        body  : req.param('body'),
-        _id   : req.param('_id')
+        title  : req.param('title'),
+        body   : req.param('body'),
+        github : req.param('github') || '',
+        _id    : req.param('_id')
     }, function (error, docs) {
         if (error) 
             res.status(500).end();
@@ -100,6 +106,7 @@ exports.save = function (req, res) {
     // If authorized, save the article
     provider.save({
         title    : req.param('title'),
+        github   : req.param('github') || '',
         created  : req.param('created') !== '' ? new Date(req.param('created')) : new Date(), 
         markdown : req.param('markdown')
     }, function (error, docs) {

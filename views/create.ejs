@@ -1,10 +1,13 @@
 <% include header.ejs %>
 
 <form method="post" action="/blog/save">
-    <input style="width:100%" id="edit-title" type="text" name="title">
-    <input style="width:100%" id="edit-title" type="text" name="created">
-    <textarea style="width:100%;height:450px" id="edit-markdown" name="markdown"></textarea>
+    Title <input style="width:80%" id="edit-title" type="text" name="title">
     <br>
+    Created <input style="width:80%" id="edit-title" type="text" name="created">
+    <br> <textarea style="width:100%;height:450px" id="edit-markdown" name="markdown"></textarea>
+    <br>
+    <br>
+    Github <input style="width:100px" id="edit-user" type="text" name="github">
     <br>
     User <input style="width:100px" id="edit-user" type="text" name="user">
     <br>

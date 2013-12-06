@@ -26,6 +26,13 @@ a {
     text-decoration: none;
 }
 
+code {
+    overflow-x: auto;
+    border-radius: 2px;
+    padding: 8px;
+    line-height: 20px;
+}
+
 .article-title {
     color: #c0392b;
     font-size: 24px;
@@ -127,8 +134,8 @@ a {
     text-decoration: none;
     background-color: #46596D;
     padding: 4px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
+    /*-webkit-border-radius: 8px;
+    -moz-border-radius: 8px;*/
     -webkit-box-shadow: 0px 9px 0px rgba(0,0,0,0.1), 0px 9px 25px rgba(0,0,0,.7);
     -moz-box-shadow: 0px 9px 0px rgba(0,0,0,0.1), 0px 9px 25px rgba(0,0,0,.7);
     box-shadow: 0px 9px 0px rgba(0,0,0,0.1), 0px 9px 25px rgba(0,0,0,.7);
@@ -144,9 +151,6 @@ a {
 
 .button:hover {
     cursor: hand;
-}
-
-.button:active {
     -webkit-box-shadow: 0px 3px 0px rgba(0,0,0,1), 0px 3px 6px rgba(0,0,0,.9);
     -moz-box-shadow: 0px 3px 0px rgba(0,0,0,1), 0px 3px 6px rgba(0,0,0,.9);
     box-shadow: 0px 3px 0px rgba(0,0,0,1), 0px 3px 6px rgba(0,0,0,.9);
@@ -157,23 +161,39 @@ a {
 .article-content {
     padding-left: 25px; 
     padding-right: 25px; 
-    font-size: 14px;
+    font-size: 100%;
+    color: #3f3f3f;
     margin-top: 25px;
+    line-height: 23px;
 }
 
 .created-at {
     font-size: 10px;
+    vertical-align: baseline;
+    clear: both;
+    float: right;
+    right: -150px;
+    position: relative;
+    padding: 4px;
+    padding-left: 16px;
+    padding-right: 10px;
+    top: 10px;
+    /*border-radius: 8px;*/
+    background: #2c3e50;
+    color: #95A5A6;
+    font-family: Open Sans;
+    font-size: 13px;
 }
 
 .article {
-    box-shadow: 0 5px 0 #666666;
+    box-shadow: 0 5px 5px #222222;
     padding: 5px;
     padding-top:15px;
     margin-bottom: 10px;
     margin-top: 10px;
     padding-bottom: 5px;
     background: white;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     padding-left: 15px;
     font-family: Open Sans
 }
@@ -189,7 +209,7 @@ a {
     background: #2C3E50;
     margin-left:20px;
     padding: 10px;
-    border-radius: 16px;
+    /*border-radius: 16px;*/
     width: -moz-calc(100% - 350px);
     width: -webkit-calc(100% - 350px);
     width: calc(100% - 350px);
@@ -207,6 +227,7 @@ a {
 .name-sidebar {
     padding-bottom: 20px; 
     padding: 10px;
+    text-shadow: 0 4px 4px #222222;
 }
 
 #name {

@@ -1,17 +1,6 @@
 <% include header.ejs %>
 
-    <div class="article">
-        <a class="article-title" href="/blog/id/<%= article._id %>">
-            <%= article.title %>
-        </a>
-        
-        <div class="article-content">
-            <span class="created-at">Created 
-                <%- article.created_at.getDate()       + '-' + 
-                   (article.created_at.getMonth() + 1) + '-' + 
-                    article.created_at.getFullYear() %>
-            </span>
-            <%- article.body %>
+    <% include article_template.ejs %>
         </div>
     </div> 
 
