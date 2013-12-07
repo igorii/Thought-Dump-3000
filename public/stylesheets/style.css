@@ -16,6 +16,8 @@ h3 {
 
 body {
     background: #fdf6e3; 
+    overflow-x: hidden;
+    margin: 0px;
 }
 
 p {
@@ -91,6 +93,7 @@ code {
     display: block;
     width: 240px;
     position: absolute;
+    margin-top: 35px;
 }
 
 #nav-main {
@@ -111,12 +114,23 @@ code {
 }
 
 #sidebar {
-    text-align: right;
+    height: 100%;
     font-size: 14px;
     position: fixed;
-    top:40px;
     left:0px;
+    padding-top:40px;
     width:250px;
+}
+
+#contact-shortcuts {
+    padding:8px;
+    bottom: 40px;
+    position: absolute;
+    opacity: 0.6;
+}
+
+#contact-shortcuts:hover {
+    opacity: 1;
 }
 
 #tag {
