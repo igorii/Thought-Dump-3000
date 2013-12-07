@@ -29,6 +29,7 @@ app.get(  '/blog',             blog.all     );
 app.get(  '/blog/id/:id',      blog.single  );
 app.get(  '/blog/edit/:id',    blog.edit    );
 app.get(  '/blog/create',      blog.create  );
+app.get(  '/blog/rss',         blog.rss     );
 
 app.post( '/blog/save',        blog.save    );
 app.post( '/blog/update',      blog.update  );

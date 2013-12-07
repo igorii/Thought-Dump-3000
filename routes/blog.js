@@ -1,4 +1,15 @@
 var html_md = require('html-md');
+var RSS     = require('rss');
+
+// Initialize the rss feed
+var feed = new RSS({
+    title: 'Tim Thornton',
+    description: 'A personal blog of programming and computer sciency stuff',
+    feed_url: '/blog/rss/',
+    site_url: 'http://192.241.182.202',
+    author: 'Tim Thornton',
+    language: 'English'
+});
 
 // Pull in the article provider
 var Provider = require('../lib/articles').provider;
@@ -129,9 +140,24 @@ exports.save = function (req, res) {
         if (error) {
             res.status(500).end();
         } else {
+
+            // Add the article to rss
+            feed.item({
+                title       : req.param('title'),
+                description : 'New blog post on timthornton.net',
+                url         : 'http://192.241.182.202/blog/id/' + docs[0]._id,
+                guid        : '' + docs[0]._id,
+                date        : docs[0]['created-at']
+            });
+
+            // Redirect to the blog
             res.redirect('/blog');
         }
     });
+};
+
+exports.rss = function (req, res) {
+    res.send(feed.xml('  '));
 };
 
 // TODO: 
