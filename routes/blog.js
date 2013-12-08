@@ -1,3 +1,6 @@
+// Const variables
+var WEBSITE = 'http://192.241.281.202'
+
 var html_md = require('html-md');
 var RSS     = require('rss');
 
@@ -5,8 +8,8 @@ var RSS     = require('rss');
 var feed = new RSS({
     title: 'Tim Thornton',
     description: 'A personal blog of programming and computer sciency stuff',
-    feed_url: '/blog/rss/',
-    site_url: 'http://192.241.182.202',
+    feed_url: WEBSITE + '/blog/rss/',
+    site_url: WEBSITE,
     author: 'Tim Thornton',
     language: 'English'
 });
@@ -16,6 +19,29 @@ var Provider = require('../lib/articles').provider;
 
 // Create a new provider
 var provider = new Provider('localhost', 27017);
+
+// Intialize the RSS feed upon startup
+setTimeout(function () {
+    provider.findAll(function (error, docs) {
+        if (error) return;
+        else docs.forEach(function (article) {
+            console.log('adding doc');
+            addToRss(feed, article);
+        });
+    });
+}, 1000);
+
+function addToRss (feed, article) {
+    feed.item({
+        title       : article.title,
+        description : 'New blog post at ' + WEBSITE,
+        url         : WEBSITE + '/blog/id/' + article._id,
+        guid        : '' + article._id,
+        date        : article['created-at']
+    });
+
+    return feed;
+}
 
 function auth(user1, pass1) {
     var user = 'user';
@@ -51,8 +77,10 @@ exports.comment = function (req, res) {
 
     // Update the article with the new body
     provider.comment({
-        user    : req.param('user') || 'Anonymous',
+        user    : req.param('name')    || 'Anonymous',
+        email   : req.param('email')   || '',
         content : req.param('content') || '',
+        notify  : req.param('notify')  || false,
         _id     : req.param('_id')
     }, function (error, docs) {
         if (error) 
@@ -142,13 +170,7 @@ exports.save = function (req, res) {
         } else {
 
             // Add the article to rss
-            feed.item({
-                title       : req.param('title'),
-                description : 'New blog post on timthornton.net',
-                url         : 'http://192.241.182.202/blog/id/' + docs[0]._id,
-                guid        : '' + docs[0]._id,
-                date        : docs[0]['created-at']
-            });
+            addToRss(feed, docs[0]);
 
             // Redirect to the blog
             res.redirect('/blog');

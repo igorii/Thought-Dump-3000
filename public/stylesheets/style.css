@@ -129,6 +129,10 @@ code {
     opacity: 0.6;
 }
 
+.contact-img:hover {
+    opacity: 0.6;
+}
+
 #contact-shortcuts:hover {
     opacity: 1;
 }

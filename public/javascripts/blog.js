@@ -1,8 +1,14 @@
+// Create a new comment manager
+var cm = new CommentManager();
+
 $(function () {
-    Common.addRedirectButton('#name'        ,         '/');
-    Common.addRedirectButton('#blog-btn-sidebar',     '/blog');
-    Common.addRedirectButton('#projects-btn-sidebar', '/projects');
-    Common.addRedirectButton('#about-btn-sidebar',    '/about');
-    Common.addRedirectButton('#resume-btn-sidebar',   '/resume');
-    Common.addRedirectButton('#contact-btn-sidebar',  '/contact');
+    
+    // Show the comment fields when adding a new comment
+    $('#comment-content').on('focus', function () {
+        cm.showContactFields();
+    });
+
+    // Add the form validation
+    cm.validateCommentForm();
+
 });
