@@ -212,6 +212,7 @@ code {
     width: calc(100% - 350px);
     min-width: 600px;
     max-width: 800px;
+    padding-bottom: 25px;
 }
 
 #lambda {
@@ -239,6 +240,7 @@ code {
 .article-comment {
     padding-right: 40px;
     padding-left: 40px;
+    margin: 0;
 }
 
 .comment-content {
@@ -256,4 +258,19 @@ code {
     margin-bottom: 15px;
     overflow-y: hidden;
     resize: none;
+    position:relative;
+    left: 25px;
+    font-size: 14px;
+}
+
+#comment-header {
+    margin-left: auto;
+    margin-right:auto;
+    width: 70px;
+    padding-bottom: 20px;
+}
+
+.comment-reply-link {
+    color: grey;
+    cursor: hand;
 }

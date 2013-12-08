@@ -65,6 +65,7 @@ exports.single = function (req, res) {
         if (error || doc === null) {
             res.status(500).end();
         } else {
+            console.log(doc.comments);
             doc.full = true; // Flag to add comments
             res.render('article', {
                 article: doc
@@ -77,16 +78,23 @@ exports.comment = function (req, res) {
 
     // Update the article with the new body
     provider.comment({
-        user    : req.param('name')    || 'Anonymous',
-        email   : req.param('email')   || '',
-        content : req.param('content') || '',
-        notify  : req.param('notify')  || false,
+        user    : req.param('name') || 'Anonymous',
+        email   : req.param('email'),
+        content : req.param('content'),
+        notify  : req.param('notify') || 'off',
         _id     : req.param('_id')
     }, function (error, docs) {
         if (error) 
             res.status(500).end();
-        else 
+        else { 
+
+            // TODO: Email all users with the 'notify' flag set
+            // TODO: Add 'reply to' mechanism to reply to comments
+            //       and restrict the above emails being sent
+
+            // Direct the user to the updated page
             res.redirect('/blog/id/' + req.param('_id'));
+        }
     });
 }
 

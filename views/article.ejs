@@ -5,23 +5,43 @@
     </div> 
 
     <%if (article.full === true) { %>
+        <a name="comments"></a>
+        <div id="comment-header">
+            Comments
+        </div>
+
         <%for (var i in article.comments) { %>
-            <div class="article-comment">
+
+            <%if (article.comments[i]['created_at']) { %>
+                <div class="article-metadata">
+                    <span class="created_at">Posted &nbsp;  
+                        <%- ('00' + article.comments[i]['created_at'].getDate()).slice(-2)       + '-' + 
+                           ('00' + (article.comments[i]['created_at'].getMonth() + 1)).slice(-2) + '-' + 
+                            article.comments[i]['created_at'].getFullYear() %>
+                    </span>
+                </div>
+            <% } %>
+
+            <div class="article-comment" id="<%- article.comments[i]._id %>">
                 <span class="leave-comment-prompt"><%- article.comments[i].user %> said:</span>
-                <br>
                 <div class="comment-content-concrete">
+                    <%- article.comments[i]._id     %> (Development guid)<br>
                     <%- article.comments[i].content %>
+                    <br>
+                    <br>
+                    <div class="comment-reply-link" id="<%- article.comments[i]._id %>">
+                        Reply
+                    </div>
                 </div>
             </div>
         <% } %>
 
-        <a name="comments"></a>
         <div class="article-comment leave-comment">
-            <form id="comment-form" action="/blog/comment/<%= article._id %>" method="POST">
+            <form class="comment-form" action="/blog/comment/<%= article._id %>" method="POST">
                 <input type="hidden" name="_id" value="<%- article._id %>">
                 <span class="leave-comment-prompt">Leave a reply</span>
                 <br>
-                <textarea class="comment-content" id="comment-content" name="comment-content" title="Enter your comment here..." placeholder="Enter your comment here..."></textarea>
+                <textarea class="comment-content" id="comment-content" name="content" title="Enter your comment here..." placeholder="Enter your comment here..."></textarea>
                 <input class="comment-field" id="comment-name" type="text" name="name" placeholder="Name (required)" hidden></input>
                 <br class="comment-field" hidden>
                 <input class="comment-field" id="comment-email" type="text" name="email" placeholder="Email (required)" hidden></input>

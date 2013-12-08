@@ -11,4 +11,10 @@ $(function () {
     // Add the form validation
     cm.validateCommentForm();
 
+    // Attach the comment reply handler
+    $('.comment-reply-link').on('click', function (e) {
+        cm.commentReplyForm(e.target.id);
+        $(e.target).off('click');
+    });
+
 });
