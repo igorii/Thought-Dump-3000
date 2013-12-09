@@ -3,6 +3,7 @@ var WEBSITE = 'http://192.241.281.202'
 
 var html_md = require('html-md');
 var RSS     = require('rss');
+var emailjs = require('emailjs');
 
 // Initialize the rss feed
 var feed = new RSS({
@@ -84,8 +85,7 @@ exports.comment = function (req, res) {
         notify  : req.param('notify') || 'off',
         _id     : req.param('_id')
     }, function (error, docs) {
-        if (error) 
-            res.status(500).end();
+        if (error) res.status(500).end();
         else { 
 
             // TODO: Email all users with the 'notify' flag set
@@ -97,6 +97,37 @@ exports.comment = function (req, res) {
         }
     });
 }
+
+function notify () {}
+
+exports.commentReply = function (req, res) {
+    provider.replyTo(req.param('parent_id'), {
+        user    : req.param('name') || 'Anonymous',
+        email   : req.param('email'),
+        content : req.param('content'),
+        notify  : req.param('notify') || 'off',
+        _id     : req.param('_id')
+    }, function (error, article) {
+        if (error) res.status(500).end();
+        else {
+
+            // Notify the parent of the reply if necessary
+            if (req.param('notify') === 'on') {
+                var parents = article.comments.filter(function (article) {
+                    article._id === req.param('parent_id');
+                });
+
+                if (parents.length > 0) {
+                    var email = parents[0].email;
+                    notify(email, req.param('name'), req.param('content'));
+                }
+            }
+
+            // Redirect to the article
+            res.redirect('/blog/id/' + req.param('_id'));
+        }
+    });
+};
 
 exports.all = function (req, res) {
     provider.findAll(function (error, docs) {

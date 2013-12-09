@@ -47,6 +47,13 @@ CommentManager.prototype.commentReplyForm = function (parentID) {
     .attr('id',    'comment-reply-' + parentID)
     .attr('class', 'comment-form');
 
+    // Article ID
+    var pathToks  = window.location.pathname.split('/');
+    var articleID = pathToks[pathToks.length - 1]; 
+    $form.append('<input type="hidden" name="_id" value="' + articleID + '"></input>');
+
+    // Parent comment ID
+    $form.append('<input type="hidden" name="parent_id" value="' + parentID + '"></input>');
     
     // Content input
     $form.append($('<textarea>', {

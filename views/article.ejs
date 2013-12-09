@@ -11,7 +11,7 @@
         </div>
 
         <%for (var i in article.comments) { %>
-
+        
             <%if (article.comments[i]['created_at']) { %>
                 <div class="article-metadata">
                     <span class="created_at">Posted &nbsp;  
@@ -19,21 +19,40 @@
                            ('00' + (article.comments[i]['created_at'].getMonth() + 1)).slice(-2) + '-' + 
                             article.comments[i]['created_at'].getFullYear() %>
                     </span>
+                    <br>
+                    <span class="created_at"><%- article.comments[i].replies.length %> Repl<%- article.comments[i].replies.length === 1 ? 'y' : 'ies' %>  
+                    </span>
                 </div>
             <% } %>
 
             <div class="article-comment" id="<%- article.comments[i]._id %>">
                 <span class="leave-comment-prompt"><%- article.comments[i].user %> said:</span>
-                <div class="comment-content-concrete">
-                    <%- article.comments[i]._id     %> (Development guid)<br>
+                <span class="comment-content-concrete">
                     <%- article.comments[i].content %>
-                    <br>
-                    <br>
-                    <div class="comment-reply-link" id="<%- article.comments[i]._id %>">
-                        Reply
-                    </div>
+                </span>
+                <div class="comment-reply-link" id="<%- article.comments[i]._id %>">
+                    Reply
                 </div>
             </div>
+            
+            <%for (var j in article.comments[i].replies) { %>
+                <%if (article.comments[i].replies[j]['created_at']) { %>
+                    <div class="article-metadata">
+                        <span class="created_at">Replied &nbsp;  
+                            <%- ('00' + article.comments[i].replies[j]['created_at'].getDate()).slice(-2)       + '-' + 
+                               ('00' + (article.comments[i].replies[j]['created_at'].getMonth() + 1)).slice(-2) + '-' + 
+                                article.comments[i].replies[j]['created_at'].getFullYear() %>
+                        </span>
+                    </div>
+                <% } %>
+
+                <div class="article-comment comment-reply" id="<%- article.comments[i].replies[j]._id %>">
+                    <span class="leave-comment-prompt"><%- article.comments[i].replies[j].user %> replied:</span>
+                    <span class="comment-content-concrete">
+                        <%- article.comments[i].replies[j].content %>
+                    </span>
+                </div>
+            <% } %>
         <% } %>
 
         <div class="article-comment leave-comment">

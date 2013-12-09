@@ -24,16 +24,17 @@ if ('development' == app.get('env')) {
 }
 
 // Application routes
-app.get(  '/',                 blog.all     );
-app.get(  '/blog',             blog.all     );
-app.get(  '/blog/id/:id',      blog.single  );
-app.get(  '/blog/edit/:id',    blog.edit    );
-app.get(  '/blog/create',      blog.create  );
-app.get(  '/blog/rss',         blog.rss     );
+app.get(  '/',              blog.all     );
+app.get(  '/blog',          blog.all     );
+app.get(  '/blog/id/:id',   blog.single  );
+app.get(  '/blog/edit/:id', blog.edit    );
+app.get(  '/blog/create',   blog.create  );
+app.get(  '/blog/rss',      blog.rss     );
 
-app.post( '/blog/save',        blog.save    );
-app.post( '/blog/update',      blog.update  );
-app.post( '/blog/comment/:id', blog.comment );
+app.post( '/blog/save',             blog.save    );
+app.post( '/blog/update',           blog.update  );
+app.post( '/blog/comment/:id',      blog.comment );
+app.post( '/blog/commentreply/:id', blog.commentReply );
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -193,7 +193,7 @@ code {
     padding-top:15px;
     margin-bottom: 25px;
     margin-top: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     background: white;
     padding-left: 15px;
     font-family: Open Sans
@@ -243,6 +243,10 @@ code {
     margin: 0;
 }
 
+.leave-comment {
+    background: #f6f6f6;
+}
+
 .comment-content {
     width: 100%;
     margin-top: 15px;
@@ -260,7 +264,7 @@ code {
     resize: none;
     position:relative;
     left: 25px;
-    font-size: 14px;
+    color: grey;
 }
 
 #comment-header {
@@ -273,4 +277,8 @@ code {
 .comment-reply-link {
     color: grey;
     cursor: hand;
+}
+
+.comment-reply {
+    margin-left: 70px;
 }
