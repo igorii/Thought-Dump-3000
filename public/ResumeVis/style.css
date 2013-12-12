@@ -1,0 +1,26 @@
+.node circle {
+  stroke: #DF4E33;
+  stroke-width: 1.5px;
+  fill-opacity: 0;
+}
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+h2 {
+    color: #69686A;
+    font-family: Helvetica;
+}
+
+#experience {
+    width:850px;
+    left: -50px;
+    position:relative;
+}
