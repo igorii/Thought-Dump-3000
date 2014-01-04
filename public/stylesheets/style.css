@@ -265,7 +265,6 @@ code {
     overflow-y: hidden;
     resize: none;
     position:relative;
-    left: 25px;
     color: black;
 }
 
@@ -288,4 +287,5 @@ code {
 
 .user-name {
     color: #d68e8d;
+}
 
