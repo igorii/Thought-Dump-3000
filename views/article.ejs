@@ -28,13 +28,14 @@
             <% } %>
 
             <div class="article-comment" id="<%- article.comments[i]._id %>">
-                <span class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].user %></span> said:</span>
-                <br>
-                <span class="comment-content-concrete">
-                    <%- article.comments[i].content %>
-                </span>
-                <div class="comment-reply-link" id="<%- article.comments[i]._id %>">
-                    Reply
+                <div class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].user %></span> said:</div>
+                <div class="comment-rest">
+                    <span class="comment-content-concrete">
+                        <%- article.comments[i].content %>
+                    </span>
+                    <div class="comment-reply-link" id="<%- article.comments[i]._id %>">
+                        Reply
+                    </div>
                 </div>
             </div>
 
@@ -57,7 +58,6 @@
                     </span>
                 </div>
             <% } %>
-            
         <% } %>
 
         <div class="article-comment leave-comment">

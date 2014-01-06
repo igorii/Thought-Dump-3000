@@ -26,7 +26,6 @@ setTimeout(function () {
     provider.findAll(function (error, docs) {
         if (error) return;
         else docs.forEach(function (article) {
-            console.log('adding doc');
             addToRss(feed, article);
         });
     });
@@ -66,7 +65,6 @@ exports.single = function (req, res) {
         if (error || doc === null) {
             res.status(500).end();
         } else {
-            console.log(doc.comments);
             doc.full = true; // Flag to add comments
             res.render('article', {
                 article: doc

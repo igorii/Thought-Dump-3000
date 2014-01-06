@@ -60,7 +60,7 @@ code {
     color: #073642;
 }
 
-#name:hover, .name:hover {
+#name:hover, .name:hover, .button:hover {
     color: #dc322f;
     cursor: hand;
 }
@@ -158,11 +158,6 @@ code {
     padding-left:20px;
 }
 
-.button:hover {
-    color: white;
-    cursor: hand;
-}
-
 .article-content {
     padding-left: 25px; 
     padding-right: 25px; 
@@ -238,6 +233,14 @@ code {
 
 /* Comments */
 
+.leave-comment-prompt {
+    margin-bottom: 5px;
+}
+
+.comment-rest {
+    margin-left: 15px;
+}
+
 .article-comment {
     padding-right: 40px;
     padding-left: 40px;
@@ -249,13 +252,39 @@ code {
     background: #e6e6e6;
 }
 
+.project-thumb:hover {
+    box-shadow: 0 0 5px 3px #dc322f;
+}
+
+.project-thumb {
+    float: left;
+    box-shadow: 0 0 5px 3px #444444;
+    margin: 10px;
+}
+
+.project-image {
+    padding: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .comment-content {
+    border: 1px solid gray;
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
     height: 70px;
     overflow-y: hidden;
     resize: none;
+    padding: 6px;
+    font-family: Arial;
+}
+
+#comment-name, #comment-email {
+    width: 100%;
+    padding: 4px;
+    border: 1px solid gray;
 }
 
 .comment-content-concrete {
@@ -277,7 +306,8 @@ code {
     color: #69686a
 }
 
-.comment-reply-link 9a9bd;
+.comment-reply-link {
+    color: #9a9bd6;
     cursor: hand;
 }
 

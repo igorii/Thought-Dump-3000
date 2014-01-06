@@ -35,6 +35,8 @@ app.get(  '/about',    function (req, res) { res.render('about') });
 app.get(  '/resume',   function (req, res) { res.render('resume') });
 app.get(  '/projects', function (req, res) { res.render('projects') });
 
+app.get(  '/projects/:project', function (req, res) { res.render('projects/' + req.params.project) });
+
 app.post( '/blog/save',             blog.save    );
 app.post( '/blog/update',           blog.update  );
 app.post( '/blog/comment/:id',      blog.comment );

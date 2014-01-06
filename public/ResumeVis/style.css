@@ -19,8 +19,12 @@ h2 {
     font-family: Helvetica;
 }
 
-#experience {
+#experience-content {
     width:850px;
     left: -50px;
     position:relative;
+}
+
+#experience {
+    width: 850px;
 }
