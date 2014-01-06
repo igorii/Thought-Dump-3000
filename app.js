@@ -31,11 +31,11 @@ app.get(  '/blog/edit/:id', blog.edit    );
 app.get(  '/blog/create',   blog.create  );
 app.get(  '/blog/rss',      blog.rss     );
 
-app.get(  '/about',    function (req, res) { res.render('about') });
-app.get(  '/resume',   function (req, res) { res.render('resume') });
-app.get(  '/projects', function (req, res) { res.render('projects') });
+app.get(  '/about',    function (req, res) { res.render('about', {recent:[]}) });
+app.get(  '/resume',   function (req, res) { res.render('resume', {recent: []}) });
+app.get(  '/projects', function (req, res) { res.render('projects', {recent: []}) });
 
-app.get(  '/projects/:project', function (req, res) { res.render('projects/' + req.params.project) });
+app.get(  '/projects/:project', function (req, res) { res.render('projects/' + req.params.project, {recent: []}) });
 
 app.post( '/blog/save',             blog.save    );
 app.post( '/blog/update',           blog.update  );

@@ -67,7 +67,8 @@ exports.single = function (req, res) {
         } else {
             doc.full = true; // Flag to add comments
             res.render('article', {
-                article: doc
+                article: doc,
+                recent: []
             });
         }
     });
@@ -127,23 +128,35 @@ exports.commentReply = function (req, res) {
     });
 };
 
+exports.recent = function (callback) {
+    provider.findAll(function (error, docs) {
+        if (error) callback([]);
+        else callback(docs.sort(function (a1, a2) { 
+            return a1.created_at < a2.created_at;
+        }).slice(0,3)); // Take the first 3
+    });
+};
+
 exports.all = function (req, res) {
     provider.findAll(function (error, docs) {
-        if (error) {
-            res.status(500).end();
-        } else {
-            res.render('blog', {
-                articles: docs.sort(function (a1, a2) { 
-                    return a1.created_at < a2.created_at;
-                }).filter(function (article) {
-                    return article.body;
-                }).map(function (article) {
-                    article.body = article.body.split('</p>')[0] + '</p>' + 
-                                   article.body.split('</p>')[1] + '</p>';
-                    return article;
-                })
-            });
-        }
+        exports.recent(function (recent) {
+            if (error) {
+                res.status(500).end();
+            } else {
+                res.render('blog', {
+                    articles: docs.sort(function (a1, a2) { 
+                        return a1.created_at < a2.created_at;
+                    }).filter(function (article) {
+                        return article.body;
+                    }).map(function (article) {
+                        article.body = article.body.split('</p>')[0] + '</p>' + 
+                                       article.body.split('</p>')[1] + '</p>';
+                        return article;
+                    }),
+                    recent: recent
+                });
+            }
+        });
     });
 };
 
@@ -159,7 +172,8 @@ exports.edit = function (req, res) {
                     created_at : doc.created_at,
                     title      : doc.title,
                     _id        : doc._id
-                }
+                },
+                recent: []
             });
         }
     });
@@ -187,7 +201,7 @@ exports.update = function (req, res) {
 
 
 exports.create = function (req, res) {
-    res.render('create');
+    res.render('create', {recent: []});
 };
 
 exports.save = function (req, res) {

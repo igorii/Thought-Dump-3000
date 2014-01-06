@@ -269,6 +269,16 @@ code {
     margin-right: auto;
 }
 
+#recent-articles {
+    position: fixed;
+    top: 80px;
+    width: 250px;
+}
+
+.narrow {
+    visibility: hidden;
+}
+
 .comment-content {
     border: 1px solid gray;
     width: 100%;
