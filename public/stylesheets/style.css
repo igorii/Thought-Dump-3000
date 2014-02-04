@@ -11,7 +11,7 @@ h5 {
 h3 {
     color: #c0392b;
     font-size:30px;
-    font-family: 'Belgrano';
+    font-family: 'Lato';
 }
 
 body {
@@ -40,7 +40,7 @@ code {
 .article-title {
     color: #dc322f;
     font-size: 24px;
-    font-family: 'Belgrano';
+    font-family: 'Lato';
     text-decoration: none;
 }
 
@@ -51,7 +51,7 @@ code {
 .read-more {
     font-size:16px;
     color: #dc322f;
-    font-family: 'Belgrano';
+    font-family: 'Lato';
     text-decoration: none;
     padding-right: 30px;
 }
@@ -222,7 +222,7 @@ code {
 }
 
 #name {
-    font-family: 'Belgrano';
+    font-family: 'Lato';
     font-size: 30px;
     color: #c6c6c6;
     padding-bottom: 5px;
@@ -291,12 +291,6 @@ code {
     font-family: Arial;
 }
 
-#comment-name, #comment-email {
-    width: 100%;
-    padding: 4px;
-    border: 1px solid gray;
-}
-
 .comment-content-concrete {
     width: 100%;
     margin-top: 15px;
@@ -317,7 +311,7 @@ code {
 }
 
 .comment-reply-link {
-    color: #9a9bd6;
+    color: #268bd2;
     cursor: hand;
 }
 
@@ -325,7 +319,9 @@ code {
     background: #e6e6e6;
 }
 
-.user-name {
-    color: #d68e8d;
+.comment-full {
+    width: 100%;
+    padding: 4px;
+    border: 1px solid gray;
 }
 
