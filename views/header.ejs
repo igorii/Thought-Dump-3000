@@ -1,12 +1,14 @@
 <html>
     <head>
-        <link href="/stylesheets/style.css" rel="stylesheet">
+        <link href="/res/bootstrap/3.1.0/bootstrap.min.css" rel="stylesheet">
         <link href="/res/highlight/styles/solarized_dark.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans|Inconsolata|Lato' rel='stylesheet' type='text/css'>
+        <link href="/stylesheets/style.css" rel="stylesheet">
 
         <script src="/res/jquery/jquery-1.8.0.min.js"></script>
         <script src="/res/jquery/validate/dist/jquery.validate.js"></script>
         <script src="/res/jquery/validate/dist/additional-methods.js"></script>
+        <script src="/res/bootstrap/3.1.0/bootstrap.min.js"></script> 
         <script src="/res/highlight/highlight.pack.js"></script>
         <script src="/javascripts/tracker.js"></script>
         
@@ -15,8 +17,35 @@
         <script src="/javascripts/blog/comment.js"></script>
         <script src="/javascripts/blog.js"></script>
 
+ 
+
     </head>
     <body>
+
+        <nav class="navbar navbar-custom" role="navigation">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+              <li><a class="navbar-brand" href="/">Tim Thornton</a></li>
+              <li><a class="navbar-custom-button" href="/blog">Blog</a></li>
+              <li><a class="navbar-custom-button" href="/about">About</a></li>
+              <li><a class="navbar-custom-button" href="/projects">Projects</a></li>
+              <li><a class="navbar-custom-button" href="resume">Resume</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </nav>
+
+
         <div id="contact-shortcuts">
             <a href="mailto:t.thornton6@gmail.com">
                 <img class="contact-img" style="background:#b58900;width:32px" id="email"      src="/images/icons/email/email-48.png">
@@ -33,31 +62,6 @@
             <a href="https://news.ycombinator.com/user?id=igorii">
                 <img class="contact-img" style="background:#cb4b16;width:32px" id="hackernews" src="/images/icons/hackernews/hackernews-48.png"> 
             </a>
-        </div>
-
-        <div id="sidebar">
-            <div id="sidebar-content">
-                <!-- <div id="tag">Student • Developer • Hobbyist</div> -->
-                <span class="nav" id="nav-sidebar-left">
-                    <a href="/blog">
-                        <span id="blog-btn-sidebar"     class="button">Blog</span>
-                    </a>
-                    <a href="/about">
-                        <span id="about-btn-sidebar"    class="button">About</span>
-                    </a>
-                </span>
-                <a href="/">
-                    <span id="name" ><span class="name-sidebar">Tim Thornton</span></span>
-                </a>
-                <span class="nav" id="nav-sidebar-right">
-                    <a href="/projects">
-                        <span id="projects-btn-sidebar" class="button">Projects</span>
-                    </a>
-                    <a href="/resume">
-                        <span id="resume-btn-sidebar"   class="button">Résumé</span>
-                    </a>
-                </span>
-            </div>
         </div>
 
         <!-- Commenting out until finished

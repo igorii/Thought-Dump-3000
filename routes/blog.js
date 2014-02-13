@@ -4,6 +4,7 @@ var WEBSITE = 'http://192.241.281.202'
 var html_md = require('html-md');
 var RSS     = require('rss');
 var emailjs = require('emailjs');
+var grav    = require('gravatar');
 
 // Initialize the rss feed
 var feed = new RSS({
@@ -19,7 +20,7 @@ var feed = new RSS({
 var Provider = require('../lib/articles').provider;
 
 // Create a new provider
-var provider = new Provider('localhost', 27017);
+var provider = new Provider('localhost', 3001);
 
 // Intialize the RSS feed upon startup
 setTimeout(function () {
@@ -60,12 +61,25 @@ exports.articles = function (req, res) {
     });
 };
 
+function resolveGravatar (comment) {
+    if (comment instanceof Array)
+        return resolveGravatars(comment);
+
+    comment.gravatar = grav.url(comment.email, {s: '40', r: 'pg', d: 'retro'});
+    return comment;
+}
+
+function resolveGravatars (comments) {
+    return comments.map(resolveGravatar);
+}
+
 exports.single = function (req, res) {
     provider.findById(req.params.id, function (error, doc) {
         if (error || doc === null) {
             res.status(500).end();
         } else {
             doc.full = true; // Flag to add comments
+            doc.comments = resolveGravatar(doc.comments); 
             res.render('article', {
                 article: doc,
                 recent: []

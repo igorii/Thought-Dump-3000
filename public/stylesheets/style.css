@@ -37,6 +37,88 @@ code {
     font-family: Inconsolata;
 }
 
+.navbar-custom {
+    background-color: #002b36;
+    color: #e6e6e6!important;
+    position: fixed;
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid #e6e6e6;
+    z-index: 1000;
+}
+
+.navbar-brand:hover {
+    background-color: #002b36;
+}
+
+.navbar-custom .navbar-nav > li > a:hover {
+    color:#222222;
+}
+
+.navbar-custom-button {
+    color: #ccc;
+    background-color: #002b36;
+}
+
+.navbar-custom-button:hover .navbar-custom-buttom:focus {
+    background-color: #f6f6f6;
+    color: #222;
+}
+
+.navbar-custom-button .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #222222;
+    background-color: #f6f6f6;
+}
+
+
+.navbar-custom .navbar-brand {
+    color:#eee;
+}
+
+.navbar-brand:hover, .navbar-brand:focus {
+    background-color: #002b36!important;
+    color: #dc322f!important;
+}
+
+
+.navbar-brand {
+    padding-right: 400px!important;
+}
+
+.active {
+    color: #222222;
+    background-color: #f6f6f6;
+}
+
+@media (min-width: 768px) {
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+    }
+    
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+}
+
+.comment-picture {
+    display: block;
+    padding: 4.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: #333;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    float: left;
+    margin-right: 10px;
+}
+
 .article-title {
     color: #dc322f;
     font-size: 24px;
@@ -61,7 +143,7 @@ code {
 }
 
 #name:hover, .name:hover, .button:hover {
-    color: #dc322f;
+    color: #cc423f;
     cursor: hand;
 }
 
@@ -87,10 +169,6 @@ code {
     width: 100%;
 }
 
-.nav {
-    width: 250px;
-}
-
 #nav-main {
     font-size: 14px;
     padding: 10px;
@@ -105,7 +183,7 @@ code {
     margin-left: auto;
     margin-right:auto;
     position: relative;
-    width: 605px;
+    width: 580px;
 }
 
 #background {
@@ -238,7 +316,7 @@ code {
 }
 
 .comment-rest {
-    margin-left: 15px;
+    margin-left: 61px;
 }
 
 .article-comment {
@@ -292,6 +370,7 @@ code {
 }
 
 .comment-content-concrete {
+    word-wrap: break-word;
     width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -311,8 +390,8 @@ code {
 }
 
 .comment-reply-link {
-    color: #268bd2;
     cursor: hand;
+    color: rgba(0, 39, 59, 0.498039);
 }
 
 .comment-reply {

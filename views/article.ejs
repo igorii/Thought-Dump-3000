@@ -28,7 +28,8 @@
             <% } %>
 
             <div class="article-comment" id="<%- article.comments[i]._id %>">
-                <div class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].user %></span> said:</div>
+                <img class="comment-picture" src=<%- article.comments[i].gravatar %>>
+                <div class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].user %></span> - </div>
                 <div class="comment-rest">
                     <span class="comment-content-concrete">
                         <%- article.comments[i].content %>
@@ -42,7 +43,7 @@
             <%for (var j in article.comments[i].replies) { %>
                 <%if (article.comments[i].replies[j]['created_at']) { %>
                     <div class="article-metadata">
-                        <span class="created_at">Replied &nbsp;  
+                        <span class="created_at">Posted &nbsp;  
                             <%- ('00' + article.comments[i].replies[j]['created_at'].getDate()).slice(-2)       + '-' + 
                                ('00' + (article.comments[i].replies[j]['created_at'].getMonth() + 1)).slice(-2) + '-' + 
                                 article.comments[i].replies[j]['created_at'].getFullYear() %>
@@ -51,11 +52,14 @@
                 <% } %>
 
                 <div class="article-comment comment-reply" id="<%- article.comments[i].replies[j]._id %>">
-                    <span class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].replies[j].user %></span> replied:</span>
+                    <img class="comment-picture" src=<%- article.comments[i].gravatar %>>
+                    <span class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].replies[j].user %></span> -</span>
                     <br>
-                    <span class="comment-content-concrete">
-                        <%- article.comments[i].replies[j].content %>
-                    </span>
+                    <div class="comment-rest"
+                        <span class="comment-content-concrete">
+                            <%- article.comments[i].replies[j].content %>
+                        </span>
+                    </div>
                 </div>
             <% } %>
         <% } %>
