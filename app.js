@@ -1,19 +1,28 @@
-/**
- * Module dependencies.
- */
 
 var express = require('express');
 var routes = require('./routes');
 var blog = require('./routes/blog');
+var admin = require('./routes/admin');
 var http = require('http');
 var path = require('path');
 var app = express();
 
+// Session management
+app.use(express.cookieParser());
+app.use(express.session({secret: 'sf48p9v1y89p1vpb324ry'}));
+
 // All environments
 app.set('view engine', 'ejs');
-app.set('port', process.env.PORT || 80);
+app.set('port', 80);
 app.use(express.favicon());
+
+// Date stamped logger
+app.use(function (req, res, next) {
+    console.log('' + (new Date()) + ': ' + req.url);
+    next();
+});
 app.use(express.logger('dev'));
+
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -23,6 +32,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// Administration routes
+app.get(   '/admin/login',   function (req, res) { res.render('admin/login', {recent:[]}) });
+app.post(  '/admin/login',   admin.login  );
+app.post(  '/admin/logout',  admin.logout );
+
 // Application routes
 app.get(  '/',              blog.all     );
 app.get(  '/blog',          blog.all     );
@@ -30,17 +44,20 @@ app.get(  '/blog/id/:id',   blog.single  );
 app.get(  '/blog/edit/:id', blog.edit    );
 app.get(  '/blog/create',   blog.create  );
 app.get(  '/blog/rss',      blog.rss     );
+app.get(  '/blog/admin',    blog.admin   );
 
-app.get(  '/about',    function (req, res) { res.render('about', {recent:[]}) });
-app.get(  '/resume',   function (req, res) { res.render('resume', {recent: []}) });
-app.get(  '/projects', function (req, res) { res.render('projects', {recent: []}) });
-
-app.get(  '/projects/:project', function (req, res) { res.render('projects/' + req.params.project, {recent: []}) });
-
-app.post( '/blog/save',             blog.save    );
-app.post( '/blog/update',           blog.update  );
-app.post( '/blog/comment/:id',      blog.comment );
+app.post( '/blog/author',           blog.author       );
+app.post( '/blog/update',           blog.update       );
+app.post( '/blog/comment/:id',      blog.comment      );
 app.post( '/blog/commentreply/:id', blog.commentReply );
+
+app.get(  '/index',    function (req, res) { res.render('index', {recent:[]})     });
+app.get(  '/about',    function (req, res) { res.render('pages/about', {recent:[]})     });
+app.get(  '/resume',   function (req, res) { res.render('pages/resume', {recent: []})   });
+app.get(  '/projects', function (req, res) { res.render('pages/projects', {recent: []}) });
+app.get(  '/projects/:project', function (req, res) { 
+    res.render('pages/projects/' + req.params.project, {recent: []}) 
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

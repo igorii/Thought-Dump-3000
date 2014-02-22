@@ -5,6 +5,7 @@ var html_md = require('html-md');
 var RSS     = require('rss');
 var emailjs = require('emailjs');
 var grav    = require('gravatar');
+var routePrefix = 'blog/';
 
 // Initialize the rss feed
 var feed = new RSS({
@@ -20,7 +21,7 @@ var feed = new RSS({
 var Provider = require('../lib/articles').provider;
 
 // Create a new provider
-var provider = new Provider('localhost', 3001);
+var provider = new Provider('localhost', 27017);
 
 // Intialize the RSS feed upon startup
 setTimeout(function () {
@@ -42,12 +43,6 @@ function addToRss (feed, article) {
     });
 
     return feed;
-}
-
-function auth(user1, pass1) {
-    var user = 'user';
-    var pass = 'pass';
-    return user === user1 && pass === pass1;
 }
 
 // Serve all articles
@@ -74,13 +69,14 @@ function resolveGravatars (comments) {
 }
 
 exports.single = function (req, res) {
+    console.log(req.params.id);
     provider.findById(req.params.id, function (error, doc) {
         if (error || doc === null) {
             res.status(500).end();
         } else {
             doc.full = true; // Flag to add comments
             doc.comments = resolveGravatar(doc.comments); 
-            res.render('article', {
+            res.render(routePrefix + 'article', {
                 article: doc,
                 recent: []
             });
@@ -157,7 +153,7 @@ exports.all = function (req, res) {
             if (error) {
                 res.status(500).end();
             } else {
-                res.render('blog', {
+                res.render(routePrefix + 'blog', {
                     articles: docs.sort(function (a1, a2) { 
                         return a1.created_at < a2.created_at;
                     }).filter(function (article) {
@@ -179,7 +175,26 @@ exports.edit = function (req, res) {
         if (error || doc === null) {
             res.status(500).end();
         } else {
-            res.render('edit', {
+            res.render(routePrefix + 'edit', {
+                article: {
+                    body       : doc.body,
+                    github     : doc.github,
+                    created_at : doc.created_at,
+                    title      : doc.title,
+                    _id        : doc._id
+                },
+                recent: []
+            });
+        }
+    });
+};
+
+exports.editDraft = function (req, res) {
+    provider.findDraftById(req.params.id, function (error, doc) {
+        if (error || doc === null) {
+            res.status(500).end();
+        } else {
+            res.render(routePrefix + 'edit', {
                 article: {
                     body       : doc.body,
                     github     : doc.github,
@@ -195,8 +210,7 @@ exports.edit = function (req, res) {
 
 exports.update = function (req, res) {
 
-    // Attempt to authorize the user
-    if (!auth(req.param('user'), req.param('pass')))
+    if (req.session.user === undefined)
         return res.status(401).send('Unauthorized');
 
     // Update the article with the new body
@@ -215,16 +229,59 @@ exports.update = function (req, res) {
 
 
 exports.create = function (req, res) {
-    res.render('create', {recent: []});
+    if (req.session.user === undefined)
+        return res.status(401).send('Unauthorized');
+
+    res.render(routePrefix + 'create', {recent: []});
 };
 
-exports.save = function (req, res) {
+exports.admin = function (req, res) {
+    if (req.session.user === undefined)
+        return res.status(401).send('Unauthorized');
+    
+    res.render(routePrefix + 'admin', {recent: []});
+}
 
-    if (!auth(req.param('user'), req.param('pass')))
+exports.author = function (req, res) {
+    if (req.session.user === undefined)
+        return res.status(401).send('Unauthorized');
+
+    if (req.param('save')) 
+        save(req, res);
+    else if (req.param('publish'))
+        publish(req, res);
+    else
+        res.status(401).send('Unauthorized');
+};
+
+function save (req, res) {
+    if (req.session.user === undefined)
         return res.status(401).send('Unauthorized');
 
     // If authorized, save the article
     provider.save({
+        title    : req.param('title'),
+        github   : req.param('github') || '',
+        markdown : req.param('markdown')
+    }, function (error, docs) {
+        if (error) {
+            res.status(500).end();
+        } else {
+            // Redirect to the blog
+            res.redirect('/blog/admin');
+        }
+    });
+};
+
+function publish (req, res) {
+    if (req.session.user === undefined)
+        return res.status(401).send('Unauthorized');
+
+    // TODO: check if it exits in the drafts store
+    // if so, remove it
+
+    // If authorized, save the article
+    provider.publish({
         title    : req.param('title'),
         github   : req.param('github') || '',
         created  : req.param('created') !== '' ? new Date(req.param('created')) : new Date(), 

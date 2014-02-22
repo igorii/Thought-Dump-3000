@@ -1,4 +1,4 @@
-<% include header.ejs %>
+<% include ../header.ejs %>
 
     <% include article_template.ejs %>
         </div>
@@ -55,13 +55,14 @@
                     <img class="comment-picture" src=<%- article.comments[i].gravatar %>>
                     <span class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].replies[j].user %></span> -</span>
                     <br>
-                    <div class="comment-rest"
+                    <div class="comment-rest">
                         <span class="comment-content-concrete">
                             <%- article.comments[i].replies[j].content %>
                         </span>
                     </div>
                 </div>
             <% } %>
+            <hr>
         <% } %>
 
         <div class="article-comment leave-comment">
@@ -86,4 +87,4 @@
         </div>
     <% } %>
 
-<% include footer.ejs %>
+<% include ../footer.ejs %>

@@ -66,7 +66,8 @@ CommentManager.prototype.commentReplyForm = function (parentID) {
     $form.append($('<input>', {
         type: 'text',
         placeholder: 'Name (required)',
-        name: 'name'
+        name: 'name',
+        class: 'comment-full'
     }));
     
     $form.append('<br>');
@@ -75,7 +76,8 @@ CommentManager.prototype.commentReplyForm = function (parentID) {
     $form.append($('<input>', {
         type: 'text',
         placeholder: 'Email (required)',
-        name: 'email'
+        name: 'email',
+        class: 'comment-full'
     }));
     
     $form.append('<br>');
@@ -83,8 +85,7 @@ CommentManager.prototype.commentReplyForm = function (parentID) {
     // Email input
     $form.append($('<input>', {
         type: 'checkbox',
-        placeholder: 'Email (required)',
-        name: 'email'
+        name: 'notify',
     }));
 
     $form.append('<span style="font-size:12px">Notify me of replies</span>');

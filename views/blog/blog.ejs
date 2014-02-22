@@ -1,16 +1,22 @@
-<% include header.ejs %>
+<% include ../header.ejs %>
+
+<div class="article" style="padding-top:0;">
+    <div class="article-content">
+        <hr>
+    </div>
+</div>
 
 <% articles.forEach(function (article) { %>
     <% include article_template.ejs %>
-            <hr>
             <div class="read-more-container">
                 <%if (article.github && article.github !== '') { %>
                     <a class="read-more" href="<%- article.github %>">Github</a>
                 <% } %>
                 <a class="read-more" href="/blog/id/<%= article._id %>">Read more...</a>
             </div>
+            <hr>
         </div>
     </div> 
 <% }) %>
 
-<% include footer.ejs %>
+<% include ../footer.ejs %>

@@ -1,6 +1,6 @@
-<% include header.ejs %>
+<% include ../header.ejs %>
 
-<form method="post" action="/blog/save">
+<form method="post" action="/blog/author">
     Title <input style="width:80%" id="edit-title" type="text" name="title">
     <br>
     Created <input style="width:80%" id="edit-title" type="text" name="created">
@@ -9,12 +9,9 @@
     <br>
     Github <input style="width:100px" id="edit-user" type="text" name="github">
     <br>
-    User <input style="width:100px" id="edit-user" type="text" name="user">
     <br>
-    Pass <input style="width:100px" id="edit-pass" type="text" name="pass">
-    <br>
-    <br>
-    <input type="submit" value="Save">
+    <input type="submit" name="save" value="Save">
+    <input type="submit" name="publish" value="Publish">
 </form>
 
-<% include footer.ejs %>
+<% include ../footer.ejs %>

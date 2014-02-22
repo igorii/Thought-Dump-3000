@@ -14,14 +14,19 @@ h3 {
     font-family: 'Lato';
 }
 
+hr {
+    border-top: 1px solid #aaa;
+    margin-bottom: 0;
+}
+
 body {
-    background: #f6f6f6; 
+    background: #e6e6e6;
     overflow-x: hidden;
     margin: 0px;
 }
 
 p {
-    text-indent: 30px;
+    margin-bottom: 25px;
 }
 
 a {
@@ -37,6 +42,16 @@ code {
     font-family: Inconsolata;
 }
 
+pre code {
+    white-space: pre;
+    overflow: auto;
+    overflow-y: hidden;
+}
+
+pre {
+    word-wrap: normal;
+}
+
 .navbar-custom {
     background-color: #002b36;
     color: #e6e6e6!important;
@@ -47,10 +62,6 @@ code {
     border: none;
     border-bottom: 1px solid #e6e6e6;
     z-index: 1000;
-}
-
-.navbar-brand:hover {
-    background-color: #002b36;
 }
 
 .navbar-custom .navbar-nav > li > a:hover {
@@ -79,12 +90,12 @@ code {
 
 .navbar-brand:hover, .navbar-brand:focus {
     background-color: #002b36!important;
-    color: #dc322f!important;
+    color: #999!important;
 }
 
 
 .navbar-brand {
-    padding-right: 400px!important;
+    margin-right: 280px!important;
 }
 
 .active {
@@ -121,9 +132,11 @@ code {
 
 .article-title {
     color: #dc322f;
-    font-size: 24px;
+    font-size: 26px;
     font-family: 'Lato';
     text-decoration: none;
+    padding-right: 25px;
+    letter-spacing: -1;
 }
 
 .read-more-container {
@@ -143,7 +156,7 @@ code {
 }
 
 #name:hover, .name:hover, .button:hover {
-    color: #cc423f;
+    color: #999999;
     cursor: hand;
 }
 
@@ -237,9 +250,8 @@ code {
 }
 
 .article-content {
-    padding-left: 25px; 
     padding-right: 25px; 
-    font-size: 100%;
+    font-size: 14px;
     color: #3f3f3f;
     margin-top: 25px;
     line-height: 23px;
@@ -262,30 +274,21 @@ code {
 }
 
 .article, .article-comment {
-    box-shadow: 0 0 2px #222222;
-    border-radius:2px;
     padding: 5px;
-    padding-top:15px;
-    margin-bottom: 25px;
-    margin-top: 10px;
-    padding-bottom: 15px;
-    background: white;
-    padding-left: 15px;
-    font-family: Open Sans
+    margin-left: 15px;
+    font-family: Open Sans;
+    padding-top:25px;
 }
 
 .title {}
 
 #site-content {
-    width: -moz-calc(100% - 350px);
-    width: -webkit-calc(100% - 350px);
-    width: calc(100% - 350px);
-    min-width: 600px;
-    max-width: 800px;
+    max-width: 620px;
     padding-bottom: 25px;
     margin-left: auto;
     margin-right: auto;
-    padding-top:60px;
+    padding-top:50px;
+    background:white
 }
 
 #lambda {
@@ -320,8 +323,8 @@ code {
 }
 
 .article-comment {
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 25px;
+    padding-left: 25px;
     margin: 0;
     color: grey;
 }
@@ -395,7 +398,7 @@ code {
 }
 
 .comment-reply {
-    background: #e6e6e6;
+    padding-left: 75px;
 }
 
 .comment-full {

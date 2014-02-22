@@ -1,0 +1,18 @@
+<% include ../header.ejs %>
+
+<div class="container">
+    <div class="content">
+      <div class="row">
+        <div class="login-form">
+          <h2>Login</h2>
+          <form method="POST" action="/admin/login" style="width: 200px;">
+              <input class="form-control" id="edit-user" name="user" type="text" placeholder="Username">
+              <input class="form-control" id="edit-pass" name="pass" type="password" placeholder="Password">
+              <button class="btn btn-primary" type="submit">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% include ../footer.ejs %>
