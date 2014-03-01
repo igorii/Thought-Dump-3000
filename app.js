@@ -1,10 +1,14 @@
+// Get the site config
+var config = require('./config');
 
 var express = require('express');
-var routes = require('./routes');
-var blog = require('./routes/blog');
-var admin = require('./routes/admin');
-var http = require('http');
-var path = require('path');
+var http    = require('http');
+var path    = require('path');
+
+// TODO: Use config in initialization
+var blog    = require('./routes/blog');
+var admin   = require('./routes/admin');
+
 var app = express();
 
 // Session management
@@ -13,7 +17,7 @@ app.use(express.session({secret: 'sf48p9v1y89p1vpb324ry'}));
 
 // All environments
 app.set('view engine', 'ejs');
-app.set('port', 80);
+app.set('port', config.port || 3000);
 app.use(express.favicon());
 
 // Date stamped logger

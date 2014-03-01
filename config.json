@@ -1,0 +1,6 @@
+{
+    "user": "user",
+    "pass": "pass",
+    "port": 80,
+    "db_port": 27017
+}
