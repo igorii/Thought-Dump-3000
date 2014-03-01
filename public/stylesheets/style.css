@@ -381,15 +381,12 @@ h5 {
 }
 
 .comment-content {
-    border: 1px solid gray;
     width: 100%;
-    margin-top: 15px;
-    margin-bottom: 15px;
     height: 70px;
     overflow-y: hidden;
     resize: none;
-    padding: 6px;
-    font-family: Arial;
+    padding: 4px;
+    margin: 2px;
 }
 
 .comment-content-concrete {
@@ -424,6 +421,6 @@ h5 {
 .comment-full {
     width: 100%;
     padding: 4px;
-    border: 1px solid gray;
+    margin: 2px;
 }
 

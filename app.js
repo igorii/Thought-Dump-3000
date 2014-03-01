@@ -33,9 +33,9 @@ if ('development' == app.get('env')) {
 }
 
 // Administration routes
-app.get(   '/admin/login',   function (req, res) { res.render('admin/login', {recent:[]}) });
-app.post(  '/admin/login',   admin.login  );
-app.post(  '/admin/logout',  admin.logout );
+app.get(  '/admin/login',   function (req, res) { res.render('admin/login', {recent:[]}) });
+app.post( '/admin/login',   admin.login  );
+app.post( '/admin/logout',  admin.logout );
 
 // Application routes
 app.get(  '/',              blog.all     );
