@@ -6,11 +6,13 @@ var http    = require('http');
 var path    = require('path');
 
 var admin   = require('./routes/admin');
+
+// Initialize the blog
 var blog    = require('./routes/blog').Blog({
-    website     : 'timthornton.net',
+    website     : config.website,
     route       : 'blog/',
-    username    : 'Tim Thornton',
-    description : 'A blog of programming and whatever else I fancy.',
+    username    : config.fullname,
+    description : config.description,
     dbport      : config.dbport
 });
 
