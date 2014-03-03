@@ -1,13 +1,18 @@
 // Get the site config
-var config = require('./config');
+var config  = require('./config');
 
 var express = require('express');
 var http    = require('http');
 var path    = require('path');
 
-// TODO: Use config in initialization
-var blog    = require('./routes/blog');
 var admin   = require('./routes/admin');
+var blog    = require('./routes/blog').Blog({
+    website     : 'timthornton.net',
+    route       : 'blog/',
+    username    : 'Tim Thornton',
+    description : 'A blog of programming and whatever else I fancy.',
+    dbport      : 3001
+});
 
 var app = express();
 
@@ -29,7 +34,7 @@ app.use(express.logger('dev'));
 
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express['static'](path.join(__dirname, 'public')));
 
 // Development only
 if ('development' == app.get('env')) {
@@ -37,7 +42,9 @@ if ('development' == app.get('env')) {
 }
 
 // Administration routes
-app.get(  '/admin/login',   function (req, res) { res.render('admin/login', {recent:[]}) });
+app.get(  '/admin/login',   function (req, res) {
+  res.render('admin/login', {recent:[]});
+});
 app.post( '/admin/login',   admin.login  );
 app.post( '/admin/logout',  admin.logout );
 
@@ -55,12 +62,12 @@ app.post( '/blog/update',           blog.update       );
 app.post( '/blog/comment/:id',      blog.comment      );
 app.post( '/blog/commentreply/:id', blog.commentReply );
 
-app.get(  '/index',    function (req, res) { res.render('index', {recent:[]})     });
-app.get(  '/about',    function (req, res) { res.render('pages/about', {recent:[]})     });
-app.get(  '/resume',   function (req, res) { res.render('pages/resume', {recent: []})   });
-app.get(  '/projects', function (req, res) { res.render('pages/projects', {recent: []}) });
-app.get(  '/projects/:project', function (req, res) { 
-    res.render('pages/projects/' + req.params.project, {recent: []}) 
+app.get(  '/index',    function (req, res) { res.render('index', {recent:[]});     });
+app.get(  '/about',    function (req, res) { res.render('pages/about', {recent:[]});     });
+app.get(  '/resume',   function (req, res) { res.render('pages/resume', {recent: []});   });
+app.get(  '/projects', function (req, res) { res.render('pages/projects', {recent: []}); });
+app.get(  '/projects/:project', function (req, res) {
+    res.render('pages/projects/' + req.params.project, {recent: []});
 });
 
 http.createServer(app).listen(app.get('port'), function(){
