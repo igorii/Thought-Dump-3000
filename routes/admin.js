@@ -1,19 +1,27 @@
 // Administration routes
 
-function auth (user, pass) {
-    return user === 'user' && pass === 'pass';
-}
+// options => user, pass
+exports.Admin = function (options) {
 
-exports.login = function (req, res) {
+    function auth (user, pass) {
+        return user === options.user && pass === options.pass;
+    }
 
-    if (!auth(req.param('user'), req.param('pass')))
-        return res.status(401).send('Unauthorized');
+    function login (req, res) {
 
-    req.session.user = req.param('user');
-    console.log('logged in');
-    res.redirect('/blog/admin');
-};
+        if (!auth(req.param('user'), req.param('pass')))
+            return res.status(401).send('Unauthorized');
 
-exports.logout = function (req, res) {
-    req.session.user = undefined;
+        req.session.user = req.param('user');
+        res.redirect('/blog/admin');
+    }
+
+    function logout (req, res) {
+        req.session.user = undefined;
+    }
+
+    return {
+        login  : login,
+        logout : logout
+    };
 };

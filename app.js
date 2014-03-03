@@ -5,7 +5,10 @@ var express = require('express');
 var http    = require('http');
 var path    = require('path');
 
-var admin   = require('./routes/admin');
+var admin   = require('./routes/admin').Admin({
+    user : config.user,
+    pass : config.pass
+});
 
 // Initialize the blog
 var blog    = require('./routes/blog').Blog({
