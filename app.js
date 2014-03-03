@@ -11,7 +11,7 @@ var blog    = require('./routes/blog').Blog({
     route       : 'blog/',
     username    : 'Tim Thornton',
     description : 'A blog of programming and whatever else I fancy.',
-    dbport      : 3001
+    dbport      : config.dbport
 });
 
 var app = express();
