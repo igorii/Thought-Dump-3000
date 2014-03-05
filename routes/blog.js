@@ -241,9 +241,6 @@ exports.Blog = function (options) {
     }
 
     function save (req, res) {
-        if (req.session.user === undefined)
-            return res.status(401).send('Unauthorized');
-
         // If authorized, save the article
         provider.save({
             title    : req.param('title'),
@@ -260,9 +257,6 @@ exports.Blog = function (options) {
     }
 
     function publish (req, res) {
-        if (req.session.user === undefined)
-            return res.status(401).send('Unauthorized');
-
         // TODO: check if it exits in the drafts store
         // if so, remove it
 
@@ -290,12 +284,15 @@ exports.Blog = function (options) {
         if (req.session.user === undefined)
             return res.status(401).send('Unauthorized');
 
-        if (req.param('save'))
+        if (req.param('save')) {
+            console.log('Saving')
             save(req, res);
-        else if (req.param('publish'))
+        } else if (req.param('publish')) {
+            console.log('Publishing')
             publish(req, res);
-        else
+        } else {
             res.status(401).send('Unauthorized');
+        }
     }
 
     function rss (req, res) {

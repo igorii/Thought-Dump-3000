@@ -4,6 +4,7 @@ var config  = require('./config');
 var express = require('express');
 var http    = require('http');
 var path    = require('path');
+var lr      = require('connect-livereload');
 
 var admin   = require('./routes/admin').Admin({
     user : config.user,
@@ -11,7 +12,7 @@ var admin   = require('./routes/admin').Admin({
 });
 
 // Initialize the blog
-var blog    = require('./routes/blog').Blog({
+var blog = require('./routes/blog').Blog({
     website     : config.website,
     route       : 'blog/',
     username    : config.fullname,
@@ -27,7 +28,7 @@ app.use(express.session({secret: 'sf48p9v1y89p1vpb324ry'}));
 
 // All environments
 app.set('view engine', 'ejs');
-app.set('port', config.port || 3000);
+app.set('port', config.port);
 app.use(express.favicon());
 
 // Date stamped logger
@@ -37,8 +38,14 @@ app.use(function (req, res, next) {
 });
 app.use(express.logger('dev'));
 
+app.use(express.query());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+
+if (config.liveReload) {
+    app.use(lr());
+}
+
 app.use(express['static'](path.join(__dirname, 'public')));
 
 // Development only
@@ -75,6 +82,9 @@ app.get(  '/projects/:project', function (req, res) {
     res.render('pages/projects/' + req.params.project, {recent: []});
 });
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+exports.run = function () {
+    app.listen(app.get('port'), function () {
+        console.log('Server listening on ' + app.get('port'));
+    });
+};
+
