@@ -65,6 +65,7 @@ app.get(  '/',              blog.all     );
 app.get(  '/blog',          blog.all     );
 app.get(  '/blog/id/:id',   blog.single  );
 app.get(  '/blog/edit/:id', blog.edit    );
+app.get(  '/blog/editDraft/:id', blog.editDraft    );
 app.get(  '/blog/create',   blog.create  );
 app.get(  '/blog/rss',      blog.rss     );
 app.get(  '/blog/admin',    blog.admin   );

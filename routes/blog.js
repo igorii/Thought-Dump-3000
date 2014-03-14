@@ -194,13 +194,7 @@ exports.Blog = function (options) {
                 res.status(500).end();
             } else {
                 res.render(options.route + 'edit', {
-                    article: {
-                        body       : doc.body,
-                        github     : doc.github,
-                        created_at : doc.created_at,
-                        title      : doc.title,
-                        _id        : doc._id
-                    },
+                    article: doc,
                     recent: []
                 });
             }
@@ -237,7 +231,14 @@ exports.Blog = function (options) {
         if (req.session.user === undefined)
             return res.status(401).send('Unauthorized');
 
-        res.render(options.route + 'admin', {recent: []});
+        provider.findDrafts(function (error, drafts) {
+            if (error) return res.status(501).end();
+
+            res.render(options.route + 'admin', {
+                drafts: drafts,
+                recent: []
+            });
+        });
     }
 
     function save (req, res) {
