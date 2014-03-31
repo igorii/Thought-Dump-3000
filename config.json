@@ -1,9 +1,9 @@
 {
     "user"        : "user",
     "pass"        : "pass",
-    "liveReload"  : true,
     "port"        : 3000,
-    "dbport"      : 3001,
+    "dbport"      : 4000,
+    "db"          : "blog",
     "website"     : "timthornton.net",
     "fullname"    : "Tim Thornton",
     "description" : "A blog of programming and whatever else I fancy."

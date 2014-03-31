@@ -1,11 +1,8 @@
 // Get the site config
 var config  = require('./config');
-
 var express = require('express');
 var http    = require('http');
 var path    = require('path');
-var lr      = require('connect-livereload');
-
 var admin   = require('./routes/admin').Admin({
     user : config.user,
     pass : config.pass
@@ -17,9 +14,11 @@ var blog = require('./routes/blog').Blog({
     route       : 'blog/',
     username    : config.fullname,
     description : config.description,
-    dbport      : config.dbport
+    dbport      : config.dbport,
+    db          : config.db
 });
 
+// Initialize the Express app
 var app = express();
 
 // Session management
@@ -30,16 +29,9 @@ app.use(express.session({secret: 'sf48p9v1y89p1vpb324ry'}));
 app.set('view engine', 'ejs');
 app.set('port', config.port);
 app.use(express.favicon());
-//app.use(express.logger('dev'));
-
 app.use(express.query());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-
-if (config.liveReload) {
-    app.use(lr());
-}
-
 app.use(express['static'](path.join(__dirname, 'public')));
 
 // Development only
@@ -48,9 +40,7 @@ if ('development' == app.get('env')) {
 }
 
 // Administration routes
-app.get(  '/admin/login',   function (req, res) {
-  res.render('admin/login', {recent:[]});
-});
+app.get(  '/admin/login',   function (req, res) { res.render('admin/login', {recent:[]}); });
 app.post( '/admin/login',   admin.login  );
 app.post( '/admin/logout',  admin.logout );
 
@@ -62,13 +52,14 @@ app.get(  '/blog/edit/:id', blog.edit    );
 app.get(  '/blog/create',   blog.create  );
 app.get(  '/blog/rss',      blog.rss     );
 app.get(  '/blog/admin',    blog.admin   );
-app.get(  '/blog/editDraft/:id', blog.editDraft    );
+app.get(  '/blog/editDraft/:id', blog.editDraft );
 
 app.post( '/blog/author',           blog.author       );
 app.post( '/blog/update',           blog.update       );
 app.post( '/blog/comment/:id',      blog.comment      );
 app.post( '/blog/commentreply/:id', blog.commentReply );
 
+// Static routes
 app.get(  '/index',    function (req, res) { res.render('index', {recent:[]});     });
 app.get(  '/about',    function (req, res) { res.render('pages/about', {recent:[]});     });
 app.get(  '/resume',   function (req, res) { res.render('pages/resume', {recent: []});   });
@@ -77,6 +68,7 @@ app.get(  '/projects/:project', function (req, res) {
     res.render('pages/projects/' + req.params.project, {recent: []});
 });
 
+// Export a run command to allow a task runner to stand up and instance
 exports.run = function () {
     app.listen(app.get('port'), function () {
         console.log('Server listening on ' + app.get('port'));

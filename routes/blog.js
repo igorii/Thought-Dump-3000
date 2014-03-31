@@ -31,7 +31,8 @@ exports.Blog = function (options) {
         }
     });
 
-    mongoose.connect('mongodb://localhost:4000/blog');
+    console.log('connecting to: ' + 'mongodb://localhost:' + options.dbport + '/' + options.db);
+    mongoose.connect('mongodb://localhost:' + options.dbport + '/' + options.db);
     var db = mongoose.connection;
 
     // Initialize the rss feed
@@ -109,9 +110,6 @@ exports.Blog = function (options) {
             if (err || post === null)
                 return res.status(500).end();
 
-            console.log('Found post');
-            console.log(post);
-
             // Add a flag to render comments
             post.full     = true;
             post.comments = resolveGravatar(post.comments);
@@ -144,13 +142,7 @@ exports.Blog = function (options) {
             user  : req.param('user')
         });
 
-        console.log('Created comment');
-        console.log(com);
-
         Post.findOne({ _id: req.param('id') }, function (err, post) {
-
-            console.log('Error: ' + err);
-            console.log('Post: ' + post);
 
             if (err || post === null)
                 return res.status(500).end();
@@ -160,10 +152,8 @@ exports.Blog = function (options) {
 
             // Update the post in the database
             post.save(function (err) {
-                if (err) {
-                    console.log(err);
+                if (err)
                     return res.status(500).end();
-                }
 
                 res.redirect('/blog/id/' + req.param('_id'));
             });
@@ -291,7 +281,7 @@ exports.Blog = function (options) {
                 return res.status(500).end();
 
             post.isDraft = 'false';
-            post.draftID  = '';
+            post.draftID = '';
 
             res.render(options.route + 'edit', {
                 article: post,
@@ -369,11 +359,12 @@ exports.Blog = function (options) {
 
         res.render(options.route + 'edit', {
             article:{
-                body    : '',
-                _id     : '',
-                isDraft : 'false',
-                title   : '',
-                github  : ''
+                body     : '',
+                markdown : '',
+                _id      : '',
+                isDraft  : 'false',
+                title    : '',
+                github   : ''
             },
             recent: []
         });
@@ -413,9 +404,9 @@ exports.Blog = function (options) {
             }
 
             draft.title    = req.param('title');
-            draft.body     = req.param('markdown');
+            draft.body     = '';
+            draft.markdown = req.param('markdown');
             draft.github   = req.param('github');
-            draft.bodyType = 'markdown';
 
             draft.save(function (err) {
                 if (err)
@@ -449,13 +440,21 @@ exports.Blog = function (options) {
                     draft.remove();
             });
         }
+        // Otherwise, if the post has been published, remove the old one
+        else if (req.param('draftID') !== ''){
+            Post.findOne({ _id: req.param('draftID') }, function (err, post) {
+                if (!err && post !== null) {
+                    post.remove();
+                }
+            });
+        }
 
         // Save the article as a post
         var post = new Post({
-            title     : req.param('title'),
-            github    : req.param('github'),
-            body      : marked(req.param('markdown')),   // When punlishing, convert markdown to html
-            bodyType  : 'html'
+            title    : req.param('title'),
+            github   : req.param('github'),
+            markdown : req.param('markdown'),
+            body     : marked(req.param('markdown'))
         });
 
         post.save(function (err) {
@@ -464,6 +463,7 @@ exports.Blog = function (options) {
 
             res.redirect('/blog');
         });
+
         //provider.publish({
         //    title    : req.param('title'),
         //    github   : req.param('github') || '',
@@ -487,15 +487,12 @@ exports.Blog = function (options) {
         if (req.session.user === undefined)
             return res.status(401).send('Unauthorized');
 
-        if (req.param('save')) {
-            console.log('Saving');
+        if (req.param('save'))
             save(req, res);
-        } else if (req.param('publish')) {
-            console.log('Publishing');
+        else if (req.param('publish'))
             publish(req, res);
-        } else {
+        else
             res.status(401).send('Unauthorized');
-        }
     }
 
     function rss (req, res) {
