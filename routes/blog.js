@@ -32,42 +32,6 @@ exports.Blog = function (options) {
     mongoose.connect('mongodb://localhost:' + options.dbport + '/' + options.db);
     var db = mongoose.connection;
 
-    // Initialize the rss feed
-    //var feed = new RSS({
-    //    title       : options.username + '\'s Blog',
-    //    description : options.description,
-    //    feed_url    : options.website + options.route + 'rss/',
-    //    site_url    : options.website,
-    //    author      : options.username,
-    //    language    : 'English'
-    //});
-
-    // Create a new provider
-    //var _Provider = require('../lib/articles').provider;
-    //var provider  = new _Provider('localhost', options.dbport);
-
-    //function addToRss (feed, article) {
-    //    feed.item({
-    //        title       : article.title,
-    //        description : 'New blog post at ' + options.website,
-    //        url         : options.website + '/blog/id/' + article._id,
-    //        guid        : '' + article._id,
-    //        date        : article['created-at']
-    //    });
-
-    //    return feed;
-    //}
-
-    // Initialize the RSS feed upon startup
-    //setTimeout(function () {
-    //    provider.findAll(function (error, docs) {
-    //        if (error) return;
-    //        else docs.forEach(function (article) {
-    //            addToRss(feed, article);
-    //        });
-    //    });
-    //}, 1000);
-
     /*
      * Given a list of comments, add a gravatar attribute to
      * the comment with the gravatar image for the user associated
@@ -85,6 +49,9 @@ exports.Blog = function (options) {
         return comment;
     }
 
+    /*
+     * Given the unique id of a published article, render that article.
+     */
     function single (req, res) {
         Post.findOne({ _id: req.params.id }, function (err, post) {
             if (err || post === null)
@@ -100,32 +67,26 @@ exports.Blog = function (options) {
                 recent: []
             });
         });
-        //provider.findById(req.params.id, function (error, doc) {
-        //    if (error || doc === null) {
-        //        res.status(500).end();
-        //    } else {
-        //        doc.full = true; // Flag to add comments
-        //        doc.comments = resolveGravatar(doc.comments);
-        //        res.render(options.route + 'article', {
-        //            article: doc,
-        //            recent: []
-        //        });
-        //    }
-        //});
     }
 
+    /*
+     * Given the unique id of a published article, add a comment with
+     * the given content to the comments of the article.
+     */
     function comment (req, res) {
 
-        var com = new Comment({
-            body  : req.param('content'),
-            email : req.param('email'),
-            user  : req.param('user')
-        });
-
+        // Find the associated post
         Post.findOne({ _id: req.param('id') }, function (err, post) {
 
             if (err || post === null)
                 return res.status(500).end();
+
+            // Create the comment model
+            var com = new Comment({
+                body  : req.param('content'),
+                email : req.param('email'),
+                user  : req.param('user')
+            });
 
             // Add the comment to the post
             post.comments.push(com.toObject());
@@ -139,91 +100,59 @@ exports.Blog = function (options) {
             });
         });
 
-        // Update the article with the new body
-        //provider.comment({
-        //    user    : req.param('name') || 'Anonymous',
-        //    email   : req.param('email'),
-        //    content : req.param('content'),
-        //    notify  : req.param('notify') || 'off',
-        //    _id     : req.param('_id')
-        //}, function (error, docs) {
-        //    if (error) res.status(500).end();
-        //    else {
-
-        //        // TODO: Email all users with the 'notify' flag set
-        //        // TODO: Add 'reply to' mechanism to reply to comments
-        //        //       and restrict the above emails being sent
-
-        //        // Direct the user to the updated page
-        //        res.redirect('/blog/id/' + req.param('_id'));
-        //    }
-        //});
     }
 
-    // TODO
-    //function notify () {}
-
+    /*
+     * TODO: Add ability to reply to comments (comments all have a unique
+     * id, and are recursively defined to have an array of comments.
+     */
     function commentReply (req, res) {
-    //    provider.replyTo(req.param('parent_id'), {
-    //        user    : req.param('name') || 'Anonymous',
-    //        email   : req.param('email'),
-    //        content : req.param('content'),
-    //        notify  : req.param('notify') || 'off',
-    //        _id     : req.param('_id')
-    //    }, function (error, article) {
-    //        if (error) res.status(500).end();
-    //        else {
-
-    //            // Notify the parent of the reply if necessary
-    //            if (req.param('notify') === 'on') {
-    //                var parents = article.comments.filter(function (article) {
-    //                    return article._id === req.param('parent_id');
-    //                });
-
-    //                if (parents.length > 0) {
-    //                    var email = parents[0].email;
-    //                    notify(email, req.param('name'), req.param('content'));
-    //                }
-    //            }
-
-    //            // Redirect to the article
-    //            res.redirect('/blog/id/' + req.param('_id'));
-    //        }
-    //    });
     }
 
+    /*
+     * Retrieve the three most recent published posts from the database.
+     */
     function recent (callback) {
         Post.find({}, function (err, posts) {
             if (err || posts === null)
                 return callback([]);
             callback(sortByDate(posts).slice(0, 3));
         });
-        //provider.findAll(function (error, docs) {
-        //    if (error) callback([]);
-        //    else callback(docs.sort(function (a1, a2) {
-        //        return a1.date < a2.date;
-        //    }).slice(0,3)); // Take the first 3
-        //});
     }
 
+    /*
+     * Given a list of objects that contain a 'date' attribute, sort the
+     * object by date with most recent first.
+     */
     function sortByDate (items) {
         return items.sort(function (p1, p2) {
             return p1.date < p2.date;
         });
     }
 
+    /*
+     * Render all the published posts in the database.
+     */
     function all (req, res) {
+
+        // Get all the posts
         Post.find({}, function (err, posts) {
             if (err || posts === null)
                 return res.status(500).end();
 
+            // Render the main blog view
             res.render(options.route + 'blog', {
                 recent   : [],
                 articles : sortByDate(posts)
+
+                    // Only worry about posts that have a body (TODO, clean database)
                     .filter(function (p) {
                         return p.body;
                     })
+
+                    // Snip the post to the first two paragraphs
                     .map(function (article) {
+                        // TODO: what about a small post that doesnt even have two paragraphs?
                         article.body = article.body.split('</p>')[0] + '</p>' +
                             article.body.split('</p>')[1] + '</p>';
 
@@ -231,31 +160,14 @@ exports.Blog = function (options) {
                     })
             });
         });
-
-        //provider.findAll(function (error, docs) {
-        //    recent(function (recent) {
-        //        if (error) {
-        //            res.status(500).end();
-        //        } else {
-        //            res.render(options.route + 'blog', {
-        //                articles: docs.sort(function (a1, a2) {
-        //                    return a1.date < a2.date;
-        //                }).filter(function (article) {
-        //                    return article.body;
-        //                }).map(function (article) {
-        //                    article.body = article.body.split('</p>')[0] + '</p>' +
-        //                        article.body.split('</p>')[1] + '</p>';
-        //                    return article;
-        //                }),
-        //                recent: recent
-        //            });
-        //        }
-        //    });
-        //});
     }
 
+    /*
+     * Edit a previously published article.
+     */
     function edit (req, res) {
 
+        // Find the article to edit
         Post.findOne({ _id: req.params.id }, function (err, post) {
             if (err || post === null)
                 return res.status(500).end();
@@ -263,97 +175,63 @@ exports.Blog = function (options) {
             post.isDraft = 'false';
             post.draftID = '';
 
+            // Render the edit view
             res.render(options.route + 'edit', {
                 article: post,
                 recent: []
             });
         });
-
-        //provider.findById(req.params.id, function (error, doc) {
-        //    if (error || doc === null) {
-        //        res.status(500).end();
-        //    } else {
-        //        res.render(options.route + 'edit', {
-        //            article: {
-        //                body       : doc.body,
-        //                github     : doc.github,
-        //                date       : doc.created_at,
-        //                title      : doc.title,
-        //                _id        : doc._id
-        //            },
-        //            recent: []
-        //        });
-        //    }
-        //});
     }
 
+    /*
+     * Edit an unpublished draft.
+     */
     function editDraft (req, res) {
 
+        // Find the draft to edit
         Draft.findOne({ _id: req.params.id }, function (err, draft) {
             if (err || draft === null)
                 return res.status(500).end();
 
-            var article     = draft;
-            article.isDraft = 'true';
+            draft.isDraft = 'true';
 
+            // Render the edit view
             res.render(options.route + 'edit', {
-                article: article,
+                article: draft,
                 recent: []
             });
         });
-
-        //provider.findDraftById(req.params.id, function (error, doc) {
-        //    if (error || doc === null) {
-        //        res.status(500).end();
-        //    } else {
-        //        res.render(options.route + 'edit', {
-        //            article: doc,
-        //            recent: []
-        //        });
-        //    }
-        //});
     }
 
-    function update (req, res) {
-
-        //if (req.session.user === undefined)
-        //    return res.status(401).send('Unauthorized');
-
-        //// Update the article with the new body
-        //provider.update({
-        //    title  : req.param('title'),
-        //    body   : req.param('body'),
-        //    github : req.param('github') || '',
-        //    _id    : req.param('_id')
-        //}, function (error, docs) {
-        //    if (error)
-        //        res.status(500).end();
-        //    else
-        //        res.redirect('/blog/id/' + req.param('_id'));
-        //});
-    }
-
+    /*
+     * Render a fresh edit view with no content.
+     */
     function create (req, res) {
         if (req.session.user === undefined)
             return res.status(401).send('Unauthorized');
 
+        // Render the view
         res.render(options.route + 'edit', {
             article:{
                 body     : '',
                 markdown : '',
                 _id      : '',
-                isDraft  : 'false',
                 title    : '',
-                github   : ''
+                github   : '',
+                isDraft  : 'false'
             },
             recent: []
         });
     }
 
+    /*
+     * Render the admin view, showing all unpublished drafts.
+     */
     function admin (req, res) {
         if (req.session.user === undefined)
             return res.status(401).send('Unauthorized');
 
+        // Get all the unpublished drafts
         Draft.find({}, function (err, drafts) {
             if (err)
                 return res.status(501).end();
@@ -363,31 +241,27 @@ exports.Blog = function (options) {
                 recent: []
             });
         });
-
-        //provider.findDrafts(function (error, drafts) {
-        //    if (error) return res.status(501).end();
-
-        //    res.render(options.route + 'admin', {
-        //        drafts: drafts,
-        //        recent: []
-        //    });
-        //});
     }
 
+    /*
+     * Save an article as a draft.
+     */
     function save (req, res) {
 
-        // Check whether a draft already exists with the same name
+        // Check whether a draft already exists with the same id
         Draft.findOne({ _id: req.param('draftID') }, function (err, draft) {
 
             if (err || draft === null) {
                 draft = new Draft();
             }
 
+            // Update the drafts content
             draft.title    = req.param('title');
             draft.body     = '';
             draft.markdown = req.param('markdown');
             draft.github   = req.param('github');
 
+            // Save the draft
             draft.save(function (err) {
                 if (err)
                     return res.status(501).end();
@@ -396,21 +270,13 @@ exports.Blog = function (options) {
             });
         });
 
-        // If authorized, save the article
-        //provider.save({
-        //    title    : req.param('title'),
-        //    github   : req.param('github') || '',
-        //    markdown : req.param('markdown')
-        //}, function (error, docs) {
-        //    if (error) {
-        //        res.status(500).end();
-        //    } else {
-        //        // Redirect to the blog
-        //        res.redirect('/blog/admin');
-        //    }
-        //});
     }
 
+    /*
+     * Publish the article, moving it out of the Draft database if it has
+     * previously been saved, and replacing it in the Post database if
+     * has previously been published.
+     */
     function publish (req, res) {
 
         // If a draft already exists, remove it
@@ -420,6 +286,7 @@ exports.Blog = function (options) {
                     draft.remove();
             });
         }
+
         // Otherwise, if the post has been published, remove the old one
         else if (req.param('draftID') !== ''){
             Post.findOne({ _id: req.param('draftID') }, function (err, post) {
@@ -443,26 +310,12 @@ exports.Blog = function (options) {
 
             res.redirect('/blog');
         });
-
-        //provider.publish({
-        //    title    : req.param('title'),
-        //    github   : req.param('github') || '',
-        //    created  : req.param('created') !== '' ? new Date(req.param('created')) : new Date(),
-        //    markdown : req.param('markdown')
-        //}, function (error, docs) {
-        //    if (error) {
-        //        res.status(500).end();
-        //    } else {
-
-        //        // Add the article to rss
-        //        addToRss(feed, docs[0]);
-
-        //        // Redirect to the blog
-        //        res.redirect('/blog');
-        //    }
-        //});
     }
 
+    /*
+     * Main entry point to saving and publishing articles. Simply dispatch
+     * to the correct authoring handler.
+     */
     function author (req, res) {
         if (req.session.user === undefined)
             return res.status(401).send('Unauthorized');
@@ -475,10 +328,13 @@ exports.Blog = function (options) {
             res.status(401).send('Unauthorized');
     }
 
+    /*
+     * TODO
+     */
     function rss (req, res) {
-        //res.send(feed.xml('  '));
     }
 
+    // Return all the goodies as module exports
     return {
         single       : single,
         comment      : comment,
@@ -487,7 +343,6 @@ exports.Blog = function (options) {
         all          : all,
         edit         : edit,
         editDraft    : editDraft,
-        update       : update,
         create       : create,
         admin        : admin,
         author       : author,
