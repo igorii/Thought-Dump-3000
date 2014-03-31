@@ -31,7 +31,6 @@ exports.Blog = function (options) {
         }
     });
 
-    console.log('connecting to: ' + 'mongodb://localhost:' + options.dbport + '/' + options.db);
     mongoose.connect('mongodb://localhost:' + options.dbport + '/' + options.db);
     var db = mongoose.connection;
 
