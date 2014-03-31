@@ -30,13 +30,7 @@ app.use(express.session({secret: 'sf48p9v1y89p1vpb324ry'}));
 app.set('view engine', 'ejs');
 app.set('port', config.port);
 app.use(express.favicon());
-
-// Date stamped logger
-app.use(function (req, res, next) {
-    console.log('' + (new Date()) + ': ' + req.url);
-    next();
-});
-app.use(express.logger('dev'));
+//app.use(express.logger('dev'));
 
 app.use(express.query());
 app.use(express.bodyParser());
@@ -65,10 +59,10 @@ app.get(  '/',              blog.all     );
 app.get(  '/blog',          blog.all     );
 app.get(  '/blog/id/:id',   blog.single  );
 app.get(  '/blog/edit/:id', blog.edit    );
-app.get(  '/blog/editDraft/:id', blog.editDraft    );
 app.get(  '/blog/create',   blog.create  );
 app.get(  '/blog/rss',      blog.rss     );
 app.get(  '/blog/admin',    blog.admin   );
+app.get(  '/blog/editDraft/:id', blog.editDraft    );
 
 app.post( '/blog/author',           blog.author       );
 app.post( '/blog/update',           blog.update       );
