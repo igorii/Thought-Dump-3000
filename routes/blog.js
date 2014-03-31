@@ -1,18 +1,16 @@
 // Dependencies
-var hljs   = require('highlight.js');   // Syntax colouring
+var hljs     = require('highlight.js'); // Syntax colouring
 var marked   = require('marked');       // Markdown compilation
-var mongoose = require('mongoose');
-var html_md  = require('html-md');
-var RSS      = require('rss');
-var emailjs  = require('emailjs');
-var grav     = require('gravatar');
+var mongoose = require('mongoose');     // MongoDB interface
+var RSS      = require('rss');          // RSS feed generation
+var grav     = require('gravatar');     // Gravatar API
 
 var Articles = require('../lib/post');
-var Post     = Articles.Post;
-var Draft    = Articles.Draft;
-var Comment  = require('../lib/comment').Comment;
+var Post     = Articles.Post;                      // Post model
+var Draft    = Articles.Draft;                     // Draft model
+var Comment  = require('../lib/comment').Comment;  // Comment model
 
-// options => website, route, username, description, dbport
+// options => website, route, username, description, dbport, db
 exports.Blog = function (options) {
 
     // Setup the markdown compiler
@@ -25,7 +23,7 @@ exports.Blog = function (options) {
         smartLists  : true,
         smartypants : false,
         langPrefix  : 'lang-',
-        highlight: function (code, lang) {
+        highlight   : function (code, lang) {
             // TODO: support lang since it's provided
             return hljs.highlightAuto(code).value;
         }
@@ -69,23 +67,6 @@ exports.Blog = function (options) {
     //        });
     //    });
     //}, 1000);
-
-    // Serve all articles
-    function articles (req, res) {
-        Post.find({}, function (err, posts) {
-            if (err)
-                return res.status(500).end();
-
-            res.send(posts);
-        });
-        //provider.findAll(function (error, docs) {
-        //    if (error) {
-        //        res.status(500).end();
-        //    } else {
-        //        res.send(docs);
-        //    }
-        //});
-    }
 
     /*
      * Given a list of comments, add a gravatar attribute to
@@ -499,7 +480,6 @@ exports.Blog = function (options) {
     }
 
     return {
-        articles     : articles,
         single       : single,
         comment      : comment,
         commentReply : commentReply,
