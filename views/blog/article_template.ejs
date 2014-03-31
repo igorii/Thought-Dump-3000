@@ -1,8 +1,8 @@
 <div class="article-metadata">
-    <span class="created-at">Posted 
-        <%- ('00' + article.created_at.getDate()).slice(-2)       + '-' + 
-           ('00' + (article.created_at.getMonth() + 1)).slice(-2) + '-' + 
-            article.created_at.getFullYear() %>
+    <span class="created-at">Posted
+        <%- ('00' + article.date.getDate()).slice(-2)       + '-' +
+           ('00' + (article.date.getMonth() + 1)).slice(-2) + '-' +
+            article.date.getFullYear() %>
     </span>
     <br>
     <a href="/blog/id/<%= article._id %>#comments">
@@ -14,6 +14,6 @@
     <a class="article-title" href="/blog/id/<%= article._id %>">
         <%= article.title %>
     </a>
-    
+
     <div class="article-content">
         <%- article.body %>

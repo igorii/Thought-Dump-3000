@@ -1,21 +1,33 @@
 <% include ../header.ejs %>
 
-<form method="post" action="/blog/update">
-    <input type="hidden" name="_id" value="<%- article._id %>">
-    <input style="width:100%" id="edit-title" type="text" name="title" value="<%- article.title %>">
-    <textarea style="width:100%;height:450px" id="edit-markdown" name="body">
-        <%- article.body %>
-    </textarea>
-    <br>
-    <br>
-    Github <input style="width:100px" id="edit-user" type="text" name="github" value="<%- article.github %>">
-    <br>
-    User <input style="width:100px" id="edit-user" type="text" name="user">
-    <br>
-    Pass <input style="width:100px" id="edit-pass" type="text" name="pass">
-    <br>
-    <br>
-    <input type="submit" value="Save">
-</form>
+<div class="article">
+    <script src="/res/Showdown/showdown.js"></script>
+    <script src="/javascripts/blog/create.js"></script>
+    <form role="form" method="post" action="/blog/author">
+        <input type="hidden" name="isDraft" value="true">
+        <input type="hidden" name="draftID" value="<%- article._id %>">
+        <div class="form-group">
+            <label for="edit-title">Title</label>
+            <input class="form-control" id="edit-title" type="text" name="title" value="<%- article.title %>">
+        </div>
+        <br>
+        <div style="width:200%">
+            <textarea class="form-control" style="float:left;resize:vertical;width:48%;height:450px" id="edit-markdown" name="markdown">
+                <%- article.body %>
+            </textarea>
+            <div class="form-control" style="position:relative;float:right;resize:vertical;width:48%;height:450px" id="edit-markdown2" name="markdown2"></div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="form-group">
+            <label for="edit-github">Github</label>
+            <input class="form-control" id="edit-github" type="text" name="github">
+        </div>
+        <br>
+        <input class="btn btn-default" type="submit" name="save" value="Save">
+        <input class="btn btn-default" type="submit" name="publish" value="Publish">
+    </form>
+</div>
 
 <% include ../footer.ejs %>

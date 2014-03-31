@@ -4,6 +4,8 @@
     <script src="/res/Showdown/showdown.js"></script>
     <script src="/javascripts/blog/create.js"></script>
     <form role="form" method="post" action="/blog/author">
+        <input type="hidden" name="isDraft" value="false">
+        <input type="hidden" name="draftID" value="">
         <div class="form-group">
             <label for="edit-title">Title</label>
             <input class="form-control" id="edit-title" type="text" name="title">

@@ -1,6 +1,5 @@
 <% include ../header.ejs %>
 
-
     <div class="article" style="padding-top:0;">
         <div class="article-content">
             <hr>
@@ -9,7 +8,7 @@
 
     <% include article_template.ejs %>
         </div>
-    </div> 
+    </div>
 
     <%if (article.full === true) { %>
         <a name="comments"></a>
@@ -17,18 +16,18 @@
             Comments
         </div>
 
-        <%for (var i in article.comments) { %>
-        
-            <%if (article.comments[i]['created_at']) { %>
+        <%for (var i = 0, j = article.comments.length; i < j; ++i) { console.log(i); %>
+
+            <%if (article.comments[i]['date']) { %>
                 <div class="article-metadata">
-                    <span class="created_at">Posted &nbsp;  
-                        <%- ('00' + article.comments[i]['created_at'].getDate()).slice(-2)       + '-' + 
-                           ('00' + (article.comments[i]['created_at'].getMonth() + 1)).slice(-2) + '-' + 
-                            article.comments[i]['created_at'].getFullYear() %>
+                    <span class="date">Posted &nbsp;
+                        <%- ('00' + article.comments[i]['date'].getDate()).slice(-2)       + '-' +
+                           ('00' + (article.comments[i]['date'].getMonth() + 1)).slice(-2) + '-' +
+                            article.comments[i]['date'].getFullYear() %>
                     </span>
                     <br>
                     <%if (article.comments[i].replies.length > 0) { %>
-                        <span class="created_at"><%- article.comments[i].replies.length %> Repl<%- article.comments[i].replies.length === 1 ? 'y' : 'ies' %>  
+                        <span class="date"><%- article.comments[i].replies.length %> Repl<%- article.comments[i].replies.length === 1 ? 'y' : 'ies' %>
                     <% } %>
                     </span>
                 </div>
@@ -39,36 +38,10 @@
                 <div class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].user %></span> - </div>
                 <div class="comment-rest">
                     <span class="comment-content-concrete">
-                        <%- article.comments[i].content %>
+                        <%- article.comments[i].body %>
                     </span>
-                    <div class="comment-reply-link" id="<%- article.comments[i]._id %>">
-                        Reply
-                    </div>
                 </div>
             </div>
-
-            <%for (var j in article.comments[i].replies) { %>
-                <%if (article.comments[i].replies[j]['created_at']) { %>
-                    <div class="article-metadata">
-                        <span class="created_at">Posted &nbsp;  
-                            <%- ('00' + article.comments[i].replies[j]['created_at'].getDate()).slice(-2)       + '-' + 
-                               ('00' + (article.comments[i].replies[j]['created_at'].getMonth() + 1)).slice(-2) + '-' + 
-                                article.comments[i].replies[j]['created_at'].getFullYear() %>
-                        </span>
-                    </div>
-                <% } %>
-
-                <div class="article-comment comment-reply" id="<%- article.comments[i].replies[j]._id %>">
-                    <img class="comment-picture" src=<%- article.comments[i].gravatar %>>
-                    <span class="leave-comment-prompt"><span class="user-name"><%- article.comments[i].replies[j].user %></span> -</span>
-                    <br>
-                    <div class="comment-rest">
-                        <span class="comment-content-concrete">
-                            <%- article.comments[i].replies[j].content %>
-                        </span>
-                    </div>
-                </div>
-            <% } %>
             <hr>
         <% } %>
 
@@ -78,19 +51,14 @@
                 <span class="leave-comment-prompt">Leave a reply</span>
                 <br>
                 <textarea class="comment-content" id="comment-content" name="content" title="Enter your comment here..." placeholder="Enter your comment here..."></textarea>
-                <input class="comment-full comment-field" id="comment-name" type="text" name="name" placeholder="Name (required)" hidden></input>
+                <input class="comment-full comment-field" id="comment-name" type="text" name="user" placeholder="Name (required)" hidden></input>
                 <br class="comment-field" hidden>
                 <input class="comment-full comment-field" id="comment-email" type="text" name="email" placeholder="Email (required)" hidden></input>
                 <br class="comment-field" hidden>
-                <input class="comment-field" type="checkbox" name="notify" hidden>
-                    <span class="comment-field" style="font-size:12px" hidden>Notify me of replies</span>
-                </input>
-                <br  class="comment-field" hidden>
-                <br  class="comment-field" hidden>
                 <input  class="comment-field" type="submit" name="submit" title="Post" id="comment-submit" hidden></input>
             </form>
             <div id="comment-error" hidden>
-            </div> 
+            </div>
         </div>
     <% } %>
 
