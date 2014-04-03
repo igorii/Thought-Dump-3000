@@ -8,8 +8,8 @@ Thought Dump 3000 uses *Node.js* on the backend, with MongoDB for persistence of
 
 ## Setup and run
 
-    git clone https://github.com/igorii/Thought Dump 3000
-    cd Thought Dump 3000
+    git clone https://github.com/igorii/Thought-Dump-3000.git
+    cd Thought-Dump-3000
     npm install
 
 At this point, Thought Dump 3000 is installed and ready to run, but before we go ahead with that, the configuration should be set up to reflect your blog.

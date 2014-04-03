@@ -34,10 +34,11 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express['static'](path.join(__dirname, 'public')));
 
-// Development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+// Locals
+app.locals({
+    fullname : config.fullname,
+    recent   : []
+});
 
 // Administration routes
 app.get(  '/admin/login',   function (req, res) {

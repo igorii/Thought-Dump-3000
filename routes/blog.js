@@ -63,9 +63,7 @@ exports.Blog = function (options) {
 
             // Render the view
             res.render(options.route + 'article', {
-                article : post,
-                recent  : [],
-                name    : options.username
+                article : post
             });
         });
     }
@@ -142,8 +140,6 @@ exports.Blog = function (options) {
 
             // Render the main blog view
             res.render(options.route + 'blog', {
-                recent   : [],
-                name     : options.username,
                 articles : sortByDate(posts)
 
                     // Only worry about posts that have a body (TODO, clean database)
@@ -177,12 +173,7 @@ exports.Blog = function (options) {
             post.draftID = '';
 
             // Render the edit view
-            res.render(options.route + 'edit', {
-                article : post,
-                recent  : [],
-                name    : options.username
-
-            });
+            res.render(options.route + 'edit', { article : post });
         });
     }
 
@@ -199,12 +190,7 @@ exports.Blog = function (options) {
             draft.isDraft = 'true';
 
             // Render the edit view
-            res.render(options.route + 'edit', {
-                article : draft,
-                recent  : [],
-                name    : options.username
-
-            });
+            res.render(options.route + 'edit', { article : draft });
         });
     }
 
@@ -224,10 +210,7 @@ exports.Blog = function (options) {
                 title    : '',
                 github   : '',
                 isDraft  : 'false'
-            },
-            recent  : [],
-            name    : options.username
-
+            }
         });
     }
 
@@ -243,12 +226,7 @@ exports.Blog = function (options) {
             if (err)
                 return res.status(501).end();
 
-            res.render(options.route + 'admin', {
-                drafts : drafts,
-                recent : [],
-                name   : options.username
-
-            });
+            res.render(options.route + 'admin', { drafts : drafts });
         });
     }
 
