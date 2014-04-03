@@ -1,18 +1,18 @@
-XYZ
-=======
+Thought Dump 3000
+=================
 
-XYZ is a simple blog application with one goal: no hassle. This goal is realized both in the simplicity of creating content, but also in setting up the application.
+Thought Dump 3000 is a simple blog application with one goal: no hassle. This goal is realized both in the simplicity of creating content, but also in setting up the application.
 
-XYZ uses *Node.js* on the backend, with MongoDB for persistence of blog posts and drafts. At the high level, an MVC approach is taken, using *mongoose* as the database interface to create a clean approach that approximates the Active Record design pattern. Views are implemented using templates in *Embedded JavaScript*.
+Thought Dump 3000 uses *Node.js* on the backend, with MongoDB for persistence of blog posts and drafts. At the high level, an MVC approach is taken, using *mongoose* as the database interface to create a clean approach that approximates the Active Record design pattern. Views are implemented using templates in *Embedded JavaScript*.
 
 
 ## Setup and run
 
-    git clone https://github.com/igorii/XYZ
-    cd XYZ
+    git clone https://github.com/igorii/Thought Dump 3000
+    cd Thought Dump 3000
     npm install
 
-At this point, XYZ is installed and ready to run, but before we go ahead with that, the configuration should be set up to reflect your blog.
+At this point, Thought Dump 3000 is installed and ready to run, but before we go ahead with that, the configuration should be set up to reflect your blog.
 
 Edit config.json with the appropriate information.
 
@@ -33,7 +33,7 @@ Great, now go ahead and start the engines!
 
 ## Blogging
 
-This is why this exists. XYZ tries to stay out of your way as much as possible. To do this, a very small feature set is available, but it just works.
+This is why this exists. Thought Dump 3000 tries to stay out of your way as much as possible. To do this, a very small feature set is available, but it just works.
 
 Simply login, create a new post, write your post in markdown, then save it or publish it. When publishing, the post will save an html render in the database to avoid render costs on every page hit.
 
