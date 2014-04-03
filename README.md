@@ -18,6 +18,7 @@ Edit config.json with the appropriate information.
 
     "user"        : Set your login username
     "pass"        : Set your login password
+    "secret"      : Set a unique string for securing sessions
     "port"        : Set the port your server should listen on (default 3000)
     "dbport"      : Set the port that the mongod instance is listening on (default 27017)
     "db"          : Set the database name within the mongod instance to use (default "blog")

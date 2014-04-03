@@ -1,10 +1,11 @@
 {
     "user"        : "user",
-    "pass"        : "pass",
+    "pass"        : "password",
+    "secret"      : "sf48p9v1y89p1vpb324ry",
     "port"        : 3000,
-    "dbport"      : 4000,
+    "dbport"      : 27017,
     "db"          : "blog",
-    "website"     : "timthornton.net",
-    "fullname"    : "Tim Thornton",
-    "description" : "A blog of programming and whatever else I fancy."
+    "website"     : "http://yoursite.com",
+    "fullname"    : "Your Name",
+    "description" : "A short description of your blog."
 }

@@ -23,7 +23,7 @@ var app = express();
 
 // Session management
 app.use(express.cookieParser());
-app.use(express.session({secret: 'sf48p9v1y89p1vpb324ry'}));
+app.use(express.session({secret: config.secret }));
 
 // All environments
 app.set('view engine', 'ejs');
@@ -40,7 +40,12 @@ if ('development' == app.get('env')) {
 }
 
 // Administration routes
-app.get(  '/admin/login',   function (req, res) { res.render('admin/login', {recent:[]}); });
+app.get(  '/admin/login',   function (req, res) {
+    res.render('admin/login', {
+        recent : [],
+        name   : config.fullname
+    });
+});
 app.post( '/admin/login',   admin.login  );
 app.post( '/admin/logout',  admin.logout );
 
@@ -59,10 +64,10 @@ app.post( '/blog/comment/:id',      blog.comment      );
 app.post( '/blog/commentreply/:id', blog.commentReply );
 
 // Static routes
-app.get(  '/index',    function (req, res) { res.render('index', {recent:[]});     });
-app.get(  '/about',    function (req, res) { res.render('pages/about', {recent:[]});     });
-app.get(  '/resume',   function (req, res) { res.render('pages/resume', {recent: []});   });
-app.get(  '/projects', function (req, res) { res.render('pages/projects', {recent: []}); });
+app.get(  '/index',    function (req, res) { res.render('index',          { recent:[], name: config.fullname });     });
+app.get(  '/about',    function (req, res) { res.render('pages/about',    { recent:[], name: config.fullname });     });
+app.get(  '/resume',   function (req, res) { res.render('pages/resume',   { recent:[], name: config.fullname });   });
+app.get(  '/projects', function (req, res) { res.render('pages/projects', { recent:[], name: config.fullname }); });
 app.get(  '/projects/:project', function (req, res) {
     res.render('pages/projects/' + req.params.project, {recent: []});
 });

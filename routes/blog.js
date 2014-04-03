@@ -63,8 +63,9 @@ exports.Blog = function (options) {
 
             // Render the view
             res.render(options.route + 'article', {
-                article: post,
-                recent: []
+                article : post,
+                recent  : [],
+                name    : options.username
             });
         });
     }
@@ -142,6 +143,7 @@ exports.Blog = function (options) {
             // Render the main blog view
             res.render(options.route + 'blog', {
                 recent   : [],
+                name     : options.username,
                 articles : sortByDate(posts)
 
                     // Only worry about posts that have a body (TODO, clean database)
@@ -176,8 +178,10 @@ exports.Blog = function (options) {
 
             // Render the edit view
             res.render(options.route + 'edit', {
-                article: post,
-                recent: []
+                article : post,
+                recent  : [],
+                name    : options.username
+
             });
         });
     }
@@ -196,8 +200,10 @@ exports.Blog = function (options) {
 
             // Render the edit view
             res.render(options.route + 'edit', {
-                article: draft,
-                recent: []
+                article : draft,
+                recent  : [],
+                name    : options.username
+
             });
         });
     }
@@ -211,7 +217,7 @@ exports.Blog = function (options) {
 
         // Render the view
         res.render(options.route + 'edit', {
-            article:{
+            article : {
                 body     : '',
                 markdown : '',
                 _id      : '',
@@ -219,7 +225,9 @@ exports.Blog = function (options) {
                 github   : '',
                 isDraft  : 'false'
             },
-            recent: []
+            recent  : [],
+            name    : options.username
+
         });
     }
 
@@ -236,8 +244,10 @@ exports.Blog = function (options) {
                 return res.status(501).end();
 
             res.render(options.route + 'admin', {
-                drafts: drafts,
-                recent: []
+                drafts : drafts,
+                recent : [],
+                name   : options.username
+
             });
         });
     }
