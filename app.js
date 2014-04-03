@@ -55,7 +55,6 @@ app.get(  '/blog/admin',    blog.admin   );
 app.get(  '/blog/editDraft/:id', blog.editDraft );
 
 app.post( '/blog/author',           blog.author       );
-app.post( '/blog/update',           blog.update       );
 app.post( '/blog/comment/:id',      blog.comment      );
 app.post( '/blog/commentreply/:id', blog.commentReply );
 
@@ -68,10 +67,8 @@ app.get(  '/projects/:project', function (req, res) {
     res.render('pages/projects/' + req.params.project, {recent: []});
 });
 
-// Export a run command to allow a task runner to stand up and instance
-exports.run = function () {
-    app.listen(app.get('port'), function () {
-        console.log('Server listening on ' + app.get('port'));
-    });
-};
+// Run the server
+app.listen(app.get('port'), function () {
+    console.log('Server listening on ' + app.get('port'));
+});
 

@@ -106,8 +106,7 @@ exports.Blog = function (options) {
      * TODO: Add ability to reply to comments (comments all have a unique
      * id, and are recursively defined to have an array of comments.
      */
-    function commentReply (req, res) {
-    }
+    function commentReply (req, res) {}
 
     /*
      * Retrieve the three most recent published posts from the database.
@@ -331,8 +330,7 @@ exports.Blog = function (options) {
     /*
      * TODO
      */
-    function rss (req, res) {
-    }
+    function rss (req, res) {}
 
     // Return all the goodies as module exports
     return {
