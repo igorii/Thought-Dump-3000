@@ -308,7 +308,6 @@ h5 {
     margin-left: auto;
     margin-right: auto;
     padding-top:50px;
-    background:white
 }
 
 #lambda {
@@ -349,9 +348,7 @@ h5 {
     color: grey;
 }
 
-.leave-comment {
-    background: #e6e6e6;
-}
+.leave-comment {}
 
 .project-thumb:hover {
     box-shadow: 0 0 5px 3px #dc322f;

@@ -3,7 +3,7 @@
     "pass"        : "password",
     "secret"      : "sf48p9v1y89p1vpb324ry",
     "port"        : 3000,
-    "dbport"      : 27017,
+    "dbport"      : 4000,
     "db"          : "blog",
     "website"     : "http://yoursite.com",
     "fullname"    : "Your Name",
