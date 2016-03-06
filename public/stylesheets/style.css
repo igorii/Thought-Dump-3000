@@ -46,14 +46,20 @@ pre code {
     white-space: pre;
     overflow: auto;
     overflow-y: hidden;
+    color: #A9B6B8;
 }
 
 pre {
     word-wrap: normal;
+    padding: 0;
 }
 
 h5 {
     font-weight: bold;
+}
+
+.hljs-keyword {
+    color: #A9B6B8;
 }
 
 .project-image {
@@ -99,6 +105,13 @@ h5 {
 
 .navbar-custom .navbar-brand {
     color:#eee;
+    display:block;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        display: none!important;
+    }
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
